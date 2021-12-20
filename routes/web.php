@@ -16,13 +16,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('sesion.inicio');
 });
+
 Route::post('/','UserController@login')->name('user.login');
 
 Route::get('/offline', function()
 {
 	return view('vendor/laravelpwa/offline');
 });
-
 
 
 Route::resource('categorias','CategoryController')->names('categories');
@@ -36,13 +36,16 @@ Route::get('/inicio', function () {
     return view('index');
 });
 
-Route::get('/registro', function () {
-    return view('sesion.registro');
-});
 
 
+Auth::routes();
 
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Auth::routes();
 
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Auth::routes();
 
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

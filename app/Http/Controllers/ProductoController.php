@@ -11,6 +11,7 @@ use App\Http\Requests\Producto\UpdateRequest;
 
 class ProductoController extends Controller
 {
+
     public function index()
     {
         $productos = Producto::with('Category')->get();

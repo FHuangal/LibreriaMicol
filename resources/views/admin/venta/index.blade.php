@@ -1,5 +1,3 @@
-
-
 @extends('layout.plantilla')
 
 @section('styles')
@@ -10,11 +8,11 @@
 
     <div class="row bg-title">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h4 class="page-title">Producto</h4> </div>
+                        <h4 class="page-title">Venta</h4> </div>
                     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                         <ol class="breadcrumb">
                             <li><a href="/inicio">Dashboard</a></li>
-                            <li class="active">Producto</li>
+                            <li class="active">Venta</li>
                         </ol>
                     </div>
     </div>
@@ -22,9 +20,9 @@
 @endsection
 
 @section('contenido')
-                
-                <div class="col-sm-offset-3 col-sm-9 text-right">
-                    <a href="{{route('productos.create')}}" class="btn btn-success waves-effect waves-light m-t-10" ><i class="ti-plus"></i> Nuevo</a>
+
+				<div class="col-sm-offset-3 col-sm-9 text-right">
+                    <a href="{{route('ventas.create')}}" class="btn btn-success waves-effect waves-light m-t-10" ><i class="ti-plus"></i> Nuevo</a>
                 </div>
                     
 				<div class="row">
@@ -34,32 +32,30 @@
                                 <table id="myTable" class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th>Codigo</th>
-                                            <th>Nombre</th>
-                                            <th>Stock</th>
-                                            <th>Imagen</th>
-                                            <th>Precio de Venta (Unid) </th>
-                                            <th>Categoría</th>
-                                            <th>Lugar</th>
+                                        	<th>Id</th>
+                                            <th>Cliente</th>
+                                            <th>Nombre Usuario</th>
+                                            <th>Fecha de venta</th>
+                                            <th>Descuento</th>
+                                            <th>Total</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($productos as $producto)
+                                        @foreach ($ventas as $venta)
                                         <tr>
-                                            <td>{{$producto->codigo}}</td>
-                                            <td>{{$producto->nombre}}</td>
-                                            <td>{{$producto->stock}} u.</td>
-                                            <td><img src="{{asset('/images/products/'.$producto->imagen)}}"></td>
-                                            <td>S/. {{$producto->precio_venta}}</td>
-                                            <td>{{$producto->category->nombre}}</td>
-                                            <td>{{$producto->lugar}}</td>
+                                            <td>{{$venta->id}}</td>
+                                            <td>{{$venta->cliente->nombre}}</td>
+                                            <td>{{$venta->user->name}}</td>
+                                            <td>{{$venta->venta_date}}</td>
+                                            <td>{{$venta->tax}}</td>
+                                            <td>{{$venta->total}}</td>
                                             <td>
-                                                <form method="POST" action="{{route('productos.destroy',$producto)}}">
+                                                <form method="POST" action="">
                                                     @csrf
-                                                    @method('DELETE')
-                                                    <a href="{{route('productos.edit',$producto)}}" class="text-inverse p-r-10" data-toggle="tooltip" title="Edit"><i class="ti-marker-alt"></i></a> 
-                                                    <button href="" type="submit" class="text-inverse" title="Delete" data-toggle="tooltip"><i class="ti-trash"></i></button>
+                                                    <a href="" class="text-inverse p-r-10" data-toggle="tooltip" title="Edit"><i class="ti-marker-alt"></i></a> 
+                                                    <a href="" class="text-inverse p-r-10" data-toggle="tooltip" title="Imprimir"><i class="ti-printer"></i></a> 
+
                                                 </form>
                                             </td>
                                         </tr>
@@ -114,7 +110,6 @@
                     });
                 }
             });
-            // Order by the grouping
         });
     });
     </script>

@@ -21,20 +21,10 @@
 
 @section('contenido')
 
-                <div class="form-actions">
-                    <div class="row">
-                        <div class="col-md-10">
-                        </div>
-                        <div class="col-md-2">
-                            <div class="row">
-                                <div class="col-md-offset-4 col-md-12">
-                                    <a type="button" class="btn btn-success" href="{{route('categories.create')}}"><i class="ti-plus"></i> Nuevo</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="col-sm-offset-3 col-sm-9 text-right">
+                    <a href="{{route('categories.create')}}" class="btn btn-success waves-effect waves-light m-t-10" ><i class="ti-plus"></i> Nuevo</a>
                 </div>
-                    
+
 				<div class="row">
                     <div class="col-sm-12">     
                         <div class="white-box">                                          

@@ -25,11 +25,11 @@ class UpdateRequest extends FormRequest
     {
         return [
             'nombre'=>'string|required|max:255',
-            'dni'=>'string|required|unique:clientes,dni,'.$this->route('cliente')->id.'|min:8|max:8',
-            'ruc'=>'nullable|string|unique:clientes,ruc,'.$this->route('cliente')->id.'|min:11|max:11',
+            'dni'=>'string|required|min:8|max:8',
+            'ruc'=>'nullable|string|min:11|max:11',
             'direccion'=>'nullable|string|max:255',
-            'telefono'=>'string|required|unique:clientes,telefono,'.$this->route('cliente')->id.'|min:9|max:9',
-            'email'=>'string|nullable|unique:clientes,email,'.$this->route('cliente')->id.'|max:255|email:rfc,dns',
+            'telefono'=>'string|required|min:9|max:9',
+            'email'=>'string|nullable|max:255|email:rfc,dns',
             ];
         }
         

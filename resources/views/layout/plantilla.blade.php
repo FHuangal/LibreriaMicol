@@ -50,7 +50,7 @@
         <nav class="navbar navbar-default navbar-static-top m-b-0">
             <div class="navbar-header">
                 <div class="top-left-part">
-                    <!-- Logo -->
+                        <!-- Logo -->
                     <a class="logo" href="index.html">
                         <!-- Logo icon image, you can use font-icon also --><b>
                         <!--This is dark logo icon--><img src="/ampleadmin/plugins/images/admin-logo.png" alt="home" class="dark-logo" /><!--This is light logo icon--><img src="/ampleadmin/plugins/images/admin-logo-dark.png" alt="home" class="light-logo" />
@@ -60,6 +60,10 @@
                      </span> </a>
                 </div>
                 <!-- /Logo -->
+                <ul class="nav navbar-top-links navbar-left">
+                    <li><a href="javascript:void(0)" class="open-close waves-effect waves-light"><i class="ti-menu"></i></a></li>
+                </ul>
+
                 <!-- Search input and Toggle icon -->
                 <ul class="nav navbar-top-links navbar-right pull-right">
                     <li class="dropdown">
@@ -105,6 +109,13 @@
                 <ul class="nav" id="side-menu">
                     <li> <a href="/inicio" class="waves-effect"><i class="mdi mdi-av-timer fa-fw" data-icon="v"></i> <span class="hide-menu"> Dashboard </span></a>
                     </li>
+
+                    <li> <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-account fa-fw" data-icon="v"></i> <span class="hide-menu"> Usuarios <span class="fa arrow"></span> </span></a>
+                        <ul class="nav nav-second-level">
+                            <li> <a href="/categorias"><i class="fa-fw">R</i><span class="hide-menu">Roles</span></a> </li>                        
+                        </ul>
+                    </li>
+
                     <li> <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-archive fa-fw" data-icon="v"></i> <span class="hide-menu"> Almacén <span class="fa arrow"></span> </span></a>
                         <ul class="nav nav-second-level">
                             <li> <a href="/categorias"><i class="fa-fw">CT</i><span class="hide-menu">Categorías</span></a> </li>
@@ -121,8 +132,8 @@
 
                     <li> <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-cash-multiple fa-fw" data-icon="v"></i> <span class="hide-menu"> Ventas <span class="fa arrow"></span> </span></a>
                         <ul class="nav nav-second-level">
-                            <li> <a href="product-orders.html"><i class="fa-fw">C</i><span class="hide-menu">Clientes</span></a> </li>
-                            <li> <a href="product-checkout.html"><i class="fa-fw">RV</i><span class="hide-menu">Registrar Venta</span></a> </li>
+                            <li> <a href="/clientes"><i class="fa-fw">C</i><span class="hide-menu">Clientes</span></a> </li>
+                            <li> <a href="/ventas"><i class="fa-fw">RV</i><span class="hide-menu">Registrar Venta</span></a> </li>
                         </ul>
                     </li>
 

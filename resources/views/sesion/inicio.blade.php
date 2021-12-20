@@ -28,8 +28,6 @@
     <div class="white-box">
       <form method="POST" class="form-horizontal form-material" id="loginform" action="{{route('user.login')}}">
         @csrf
-        <a href="" class="text-center db"><img src="/ampleadmin/plugins/images/admin-logo-dark.png" alt="Home" /><br/><img src="/ampleadmin/plugins/images/admin-text-dark.png" alt="Home" /></a>  
-        
         <div class="form-group m-t-40">
           <div class="col-xs-12">
             <input class="form-control" type="text"  placeholder="Nombre" id="name" name="name" value="{{old('name')}}" required>
@@ -50,11 +48,6 @@
         <div class="form-group text-center m-t-20">
           <div class="col-xs-12">
             <button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">Ingresar</button>
-          </div>
-        </div>
-        <div class="form-group m-b-0">
-          <div class="col-sm-12 text-center">
-            <p>No tienes cuenta? <a href="/registro" class="text-primary m-l-5"><b>Registrarme</b></a></p>
           </div>
         </div>
       </form>

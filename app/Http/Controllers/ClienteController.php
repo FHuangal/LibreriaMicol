@@ -24,6 +24,7 @@ class ClienteController extends Controller
     public function Store(StoreRequest $request)
     {
         Cliente::create($request->all());
+
         return redirect()->route('clientes.index');
     }
 
@@ -33,21 +34,24 @@ class ClienteController extends Controller
         return view('admin.cliente.show', compact('cliente'));
     }
 
-    public function edit(Cliente $cliente)
+    public function edit($id)
     {
-        return view('admin.cliente.show', compact('cliente'));
+        $cliente=Cliente::find($id);
+        return view('admin.cliente.edit')->with('cliente',$cliente);
     }
 
 
-    public function Update(UpdateRequest $request, Cliente $cliente)
+    public function Update(UpdateRequest $request, $id)
     {
+        $cliente=Cliente::find($id);
         $cliente->update($request->all());
         return redirect()->route('clientes.index');
     }
 
    
-    public function destroy(Cliente $cliente)
+    public function destroy($id)
     {
+        $cliente=Cliente::find($id);
         $cliente->delete();
         return redirect()->route('clientes.index');
     }

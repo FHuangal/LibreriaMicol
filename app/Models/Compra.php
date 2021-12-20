@@ -16,7 +16,6 @@ class Compra extends Model
         'tax',
         'total',
         'estado',
-        'picture',
     ];
 
     public function user(){
@@ -26,6 +25,6 @@ class Compra extends Model
         return $this->belongsTo(Proveedor::class);
     }
     public function DetalleCompra(){
-        return $this->belongsTo(DetalleCompra::class);
+        return $this->hasMany(DetalleCompra::class);
     }
 }

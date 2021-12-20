@@ -26,7 +26,7 @@ public function cliente(){
     return $this->belongsTo(Cliente::class);
 }
 public function DetalleVenta(){
-    return $this->belongsTo(DetalleVenta::class);
+    return $this->hasMany(DetalleVenta::class);
 }
 
   }
