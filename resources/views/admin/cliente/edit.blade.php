@@ -39,34 +39,24 @@
                                                 <!--/span-->
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label class="control-label col-md-3">DNI</label>
+                                                        <label class="control-label col-md-3">DNI/RUC</label>
                                                         <div class="col-md-9">
-                                                            <input type="number" class="form-control" id="dni" name="dni" value="{{$cliente->dni}}" required> </div>
+                                                            <input type="number" class="form-control" id="documento" name="documento" value="{{$cliente->documento}}" required> </div>
                                                     </div>
                                                 </div>
                                                 <!--/span-->
                                             </div> 
 
                                             <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="control-label col-md-3">RUC</label>
-                                                        <div class="col-md-9">
-                                                            <input type="number" class="form-control" id="ruc" name="ruc" value="{{$cliente->ruc}}" required></div>
-                                                    </div>
-                                                </div>
                                                 <!--/span-->
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label class="control-label col-md-3">Dirección</label>
                                                         <div class="col-md-9">
-                                                            <input type="text" class="form-control" id="direccion" name="direccion" value="{{$cliente->direccion}}" required> </div>
+                                                            <input type="text" class="form-control" id="direccion" name="direccion" value="{{$cliente->direccion}}"> </div>
                                                     </div>
                                                 </div>
                                                 <!--/span-->
-                                            </div>
-
-                                            <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label class="control-label col-md-3">Teléfono</label>
@@ -74,6 +64,10 @@
                                                             <input type="number" class="form-control" id="telefono" name="telefono" value="{{$cliente->telefono}}" required></div>
                                                     </div>
                                                 </div>
+                                            </div>
+
+                                            <div class="row">
+                                                
                                                 <!--/span-->
                                                 <div class="col-md-6">
                                                     <div class="form-group">
@@ -86,18 +80,8 @@
                                             </div>                                             
                                             <!--/row-->
 		                                    <div class="form-actions">
-		                                        <div class="row">
-		                                            <div class="col-md-9">
-		                                            </div>
-		                                            <div class="col-md-3">
-		                                            	<div class="row">
-		                                                    <div class="col-md-offset-3 col-md-12">
-		                                                        <button type="submit" class="btn btn-success">Guardar</button>
-		                                                        <a href="{{route('clientes.index')}}" type="button" class="btn btn-default">Cancelar</a>
-		                                                    </div>
-		                                                </div>
-		                                            </div>
-		                                        </div>
+		                                        <button type="submit" class="btn btn-success">Guardar</button>
+		                                        <a href="{{route('clientes.index')}}" type="button" class="btn btn-default">Cancelar</a>
 		                                    </div>
                                     </form>
                                 </div>
@@ -108,5 +92,9 @@
 @endsection
 
 @section('scripts')
-
+<script>
+        @if(session('Clientee')=='error')
+        swal("Cliente no actualizado","", "error")
+        @endif
+</script>
 @endsection

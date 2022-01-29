@@ -25,8 +25,7 @@ class StoreRequest extends FormRequest
     {
         return [
         'nombre'=>'string|required|max:255',
-        'dni'=>'string|required|unique:clientes|min:8|max:8',
-        'ruc'=>'nullable|string|unique:clientes|min:11|max:11',
+        'documento'=>'string|required|unique:clientes|min:8|max:11',
         'direccion'=>'nullable|string|max:255',
         'telefono'=>'string|required|unique:clientes|min:9|max:9',
         'email'=>'string|nullable|unique:clientes|max:255|email:rfc,dns',
@@ -41,16 +40,11 @@ class StoreRequest extends FormRequest
         'nombre.required'=>'Este campo es requerido.', 
         'nombre.max'=>'Solo se permite 255 caracteres.',
 
-        'dni.string'=>'El valor no es correcto.',
-        'dni.required'=>'Este campo es requerido.', 
-        'dni.unique'=>'Este DNI ya se encuentra registrado.',
-        'dni.min'=>'Se requiere de 8 caracteres.',
-        'dni.max'=>'Solo se permite 8 caracteres.',
-
-        'ruc.string'=>'El valor no es correcto.',
-        'ruc.unique'=>'El numero de RUC ya se encuentra registrado.',
-        'ruc.min'=>'Se requiere de 11 caracteres.',
-        'ruc.max'=>'Solo se permite 11 caracteres.',
+        'documento.string'=>'El valor no es correcto.',
+        'documento.required'=>'Este campo es requerido.', 
+        'documento.unique'=>'Este documento ya se encuentra registrado.',
+        'documento.min'=>'Se requiere de 8 caracteres.',
+        'documento.max'=>'Solo se permite 11 caracteres.',
 
         'direccion.string'=>'El valor no es correcto.',
         'direccion.max'=>'Solo se permite 255 caracteres.',

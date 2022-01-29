@@ -8,10 +8,10 @@
 
     <div class="row bg-title">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h4 class="page-title">Proveedor</h4> </div>
+                        <h4 class="page-title">Mantenedor proveedor</h4> </div>
                     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                         <ol class="breadcrumb">
-                            <li><a href="/inicio">Dashboard</a></li>
+                            <li><a href="/home">Dashboard</a></li>
                             <li class="active">Proveedor</li>
                         </ol>
                     </div>
@@ -20,15 +20,13 @@
 @endsection
 
 @section('contenido')
-                
 
-                <div class="col-sm-offset-3 col-sm-9 text-right">
-                    <a href="{{route('proveedors.create')}}" class="btn btn-success waves-effect waves-light m-t-10" ><i class="ti-plus"></i> Nuevo</a>
-                </div>
-                    
 				<div class="row">
                     <div class="col-sm-12">     
-                        <div class="white-box">                                          
+                        <div class="white-box">
+                            <div class="row text-right">
+                                <a href="{{route('proveedors.create')}}" class="btn btn-success waves-effect waves-light m-t-10" ><i class="ti-plus"></i> Nuevo</a>
+                            </div>                                          
                             <div class="table-responsive">              
                                 <table id="myTable" class="table table-striped">
                                     <thead>
@@ -38,7 +36,7 @@
                                             <th>Ruc</th>
                                             <th>Dirección</th>
                                             <th>Teléfono</th>
-                                            <th>Acciones</th>
+                                            <th style="width:50px;">Acciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -113,6 +111,19 @@
           
         });
     });
+
+    @if(session('Proveedorg')=='ok')
+        swal("Proveedor registrado con éxito","", "success")
+    @endif
+    @if(session('Proveedore')=='ok')
+        swal("Proveedor actualizado con éxito","", "success")
+    @endif
+    @if(session('Proveedord')=='ok')
+        swal("Proveedor eliminado con éxito","", "success")
+    @endif
+    @if(session('Proveedord')=='error')
+        swal("Proveedor no eliminado","", "error")
+    @endif
     
     </script>
 @endsection

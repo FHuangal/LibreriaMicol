@@ -42,7 +42,7 @@
                                                     <div class="form-group">
                                                         <label class="control-label col-md-3">Nombre</label>
                                                         <div class="col-md-9">
-                                                            <input type="text" class="form-control" placeholder="nombre" id="nombre" name="nombre" required></div>
+                                                            <input type="text" class="form-control" placeholder="nombre" id="nombre" name="nombre"></div>
                                                     </div>
                                                 </div>
                                                 <!--/span-->
@@ -50,25 +50,15 @@
                                                     <div class="form-group">
                                                         <label class="control-label col-md-3">Descripción</label>
                                                         <div class="col-md-9">
-                                                            <input type="text" class="form-control" placeholder="descripcion" id="descripcion" name="descripcion" required> </div>
+                                                            <input type="text" class="form-control" placeholder="descripcion" id="descripcion" name="descripcion"> </div>
                                                     </div>
                                                 </div>
                                                 <!--/span-->
                                             </div>                                            
                                             <!--/row-->
 		                                    <div class="form-actions">
-		                                        <div class="row">
-		                                            <div class="col-md-9">
-		                                            </div>
-		                                            <div class="col-md-3">
-		                                            	<div class="row">
-		                                                    <div class="col-md-offset-3 col-md-12">
-		                                                        <button type="submit" class="btn btn-success">Guardar</button>
-		                                                        <a href="{{route('categories.index')}}" type="button" class="btn btn-default">Cancelar</a>
-		                                                    </div>
-		                                                </div>
-		                                            </div>
-		                                        </div>
+		                                        <button type="submit" class="btn btn-success">Guardar</button>
+		                                        <a href="{{route('categories.index')}}" type="button" class="btn btn-default">Cancelar</a>
 		                                    </div>
                                     </form>
                                 </div>

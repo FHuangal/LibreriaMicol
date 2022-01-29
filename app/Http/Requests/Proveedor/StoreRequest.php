@@ -26,7 +26,7 @@ class StoreRequest extends FormRequest
         return [
             'nombre'=>'required|string|max:255',
             'email'=>'required|email|string|max:200|unique:proveedors',
-            'ruc'=>'required|string|max:10|min:10|unique:proveedors',
+            'ruc'=>'required|string|max:11|min:10|unique:proveedors',
             'direccion'=>'nullable|string|max:255',
             'telefono'=>'required|string|max:9|min:9|unique:proveedors',
         ];
@@ -35,11 +35,11 @@ class StoreRequest extends FormRequest
     public function messages()
     {
         return[
-        'nombre.required'=>'Este campo es requerido.',
+        'nombre.required'=>'El campo nombre es requerido.',
         'nombre.string'=>'El valor no es correcto.',
         'nombre.max'=>'Solo se permite 255 caracteres.',
 
-        'email.required'=>'Este campo es requerido.',
+        'email.required'=>'El campo email es requerido.',
         'email.email'=>'No es un correo electronico.',
         'email.string'=>'El valor no es correcto.',
         'email.max'=>'Solo se permite 255 caracteres.',
@@ -47,7 +47,7 @@ class StoreRequest extends FormRequest
 
         'ruc.required'=>'Este campo es requerido.',
         'ruc.string'=>'El valor no es correcto.',
-        'ruc.max'=>'Solo se permiten 10 caracteres.',
+        'ruc.max'=>'Solo se permiten 11 caracteres.',
         'ruc.min'=>'Se requiere de 10 caracteres.',
         'ruc.unique'=>'Ya se encuentra registrado.',
 

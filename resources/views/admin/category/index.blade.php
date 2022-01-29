@@ -8,10 +8,10 @@
 
     <div class="row bg-title">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h4 class="page-title">Categoria</h4> </div>
+                        <h4 class="page-title">Mantenedor categoría</h4> </div>
                     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                         <ol class="breadcrumb">
-                            <li><a href="/inicio">Dashboard</a></li>
+                            <li><a href="/home">Dashboard</a></li>
                             <li class="active">Categoria</li>
                         </ol>
                     </div>
@@ -21,20 +21,19 @@
 
 @section('contenido')
 
-                <div class="col-sm-offset-3 col-sm-9 text-right">
-                    <a href="{{route('categories.create')}}" class="btn btn-success waves-effect waves-light m-t-10" ><i class="ti-plus"></i> Nuevo</a>
-                </div>
-
 				<div class="row">
                     <div class="col-sm-12">     
-                        <div class="white-box">                                          
+                        <div class="white-box">
+                            <div class="row text-right">
+                                <a href="{{route('categories.create')}}" class="btn btn-success waves-effect waves-light " ><i class="ti-plus"></i> Nuevo</a>
+                            </div>                                          
                             <div class="table-responsive">              
                                 <table id="myTable" class="table table-striped">
                                     <thead>
                                         <tr>
                                             <th>Nombre</th>
                                             <th>Descripción</th>
-                                            <th>Acciones</th>
+                                            <th style="width:50px;">Acciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -43,7 +42,7 @@
                                             <td>{{$categoria->nombre}}</td>
                                             <td>{{$categoria->descripcion}}</td>
                                             <td>
-                                                <form method="POST" action="{{route('categories.destroy',$categoria)}}">
+                                                <form method="POST" action="{{route('categories.destroy',$categoria)}}" >
                                                     @csrf
                                                     @method('DELETE')
                                                     <a href="{{route('categories.edit',$categoria)}}" class="text-inverse p-r-10" data-toggle="tooltip" title="Edit"><i class="ti-marker-alt"></i></a> 
@@ -104,6 +103,30 @@
             });
         });
     });
+
+
+    @if(session('Categoriag')=='ok')
+        swal("Categoría guardada con éxito","", "success")
+    @endif
+    @if(session('Categoriag')=='error')
+        swal("Categoría no guardada","", "error")
+    @endif
+    @if(session('Categoriae')=='ok')
+        swal("Categoría actualizada con éxito","", "success")
+    @endif
+    @if(session('Categoriae')=='error')
+        swal("Categoría no actualizada","", "error")
+    @endif
+    @if(session('Categoriad')=='ok')
+        swal("Categoría eliminada con éxito","", "success")
+    @endif
+    @if(session('Categoriad')=='error')
+        swal("Categoría no eliminada","", "error")
+    @endif
+    
+    
+
+
     </script>
 @endsection
                

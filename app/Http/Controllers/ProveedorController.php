@@ -6,9 +6,15 @@ use App\Models\Proveedor;
 use Illuminate\Http\Request;
 use App\Http\Requests\Proveedor\StoreRequest;
 use App\Http\Requests\Proveedor\UpdateRequest;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 
 class ProveedorController extends Controller
 {
+     public function __construct()
+    {
+        $this->middleware('auth');
+    }
     
     public function index()
     {
@@ -24,14 +30,23 @@ class ProveedorController extends Controller
 
     public function Store(StoreRequest $request)
     {
-        Proveedor::create($request->all());
-        return redirect()->route('proveedors.index');
+        DB::beginTransaction();
+        try {
+            Proveedor::create($request->all());
+            DB::commit();
+            return redirect()->route('proveedors.index')->with('Proveedorg','ok');
+        } catch (\Exception $e) {
+            DB::rollback();
+            Log::info($e);
+            return redirect()->route('proveedors.create')->with('Proveedorg','error');
+        }
+        
     }
 
   
     public function show(Proveedor $proveedor)
     {
-        return view('admin.proveedor.show', compact('proveedor'));
+
     }
 
     public function edit($id)
@@ -43,16 +58,34 @@ class ProveedorController extends Controller
 
     public function Update(UpdateRequest $request, $id)
     {
-        $proveedor=Proveedor::find($id);
-        $proveedor->update($request->all());
-        return redirect()->route('proveedors.index');
+        DB::beginTransaction();
+        try {
+            $proveedor=Proveedor::find($id);
+            $proveedor->update($request->all());
+            DB::commit();
+            return redirect()->route('proveedors.index')->with('Proveedore','ok');
+        } catch (\Exception $e) {
+            DB::rollback();
+            Log::info($e);
+            return redirect()->route('proveedors.edit')->with('Proveedore','error');
+        }
+        
     }
 
    
     public function destroy($id)
     {
-        $proveedor=Proveedor::find($id);
-        $proveedor->delete();
-        return redirect()->route('proveedors.index');
+        DB::beginTransaction();
+        try {
+            $proveedor=Proveedor::find($id);
+            $proveedor->delete();
+            DB::commit();
+            return redirect()->route('proveedors.index')->with('Proveedord','ok');
+        } catch (\Exception $e) {
+            DB::rollback();
+            Log::info($e);
+            return redirect()->route('proveedors.index')->with('Proveedord','error');
+        }
+        
     }
 }

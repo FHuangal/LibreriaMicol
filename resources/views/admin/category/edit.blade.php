@@ -58,18 +58,8 @@
                                             </div>                                            
                                             <!--/row-->
 		                                    <div class="form-actions">
-		                                        <div class="row">
-		                                            <div class="col-md-9">
-		                                            </div>
-		                                            <div class="col-md-3">
-		                                            	<div class="row">
-		                                                    <div class="col-md-offset-3 col-md-12">
-		                                                        <button type="submit" class="btn btn-success">Guardar</button>
-		                                                        <a href="{{route('categories.index')}}" type="button" class="btn btn-default">Cancelar</a>
-		                                                    </div>
-		                                                </div>
-		                                            </div>
-		                                        </div>
+		                                        <button type="submit" class="btn btn-success">Guardar</button>
+		                                        <a href="{{route('categories.index')}}" type="button" class="btn btn-default">Cancelar</a>
 		                                    </div>
                                     </form>
                                 </div>

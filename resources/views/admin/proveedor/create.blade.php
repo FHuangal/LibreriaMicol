@@ -68,7 +68,7 @@
                                                     <div class="form-group">
                                                         <label class="control-label col-md-3">Dirección</label>
                                                         <div class="col-md-9">
-                                                            <input type="text" class="form-control" placeholder="dirección" id="direccion" name="direccion" required></div>
+                                                            <input type="text" class="form-control" placeholder="dirección" id="direccion" name="direccion"></div>
                                                     </div>
                                                 </div>
                                                 <!--/span-->
@@ -88,18 +88,8 @@
                                             </div>                                            
                                             <!--/row-->
 		                                    <div class="form-actions">
-		                                        <div class="row">
-		                                            <div class="col-md-9">
-		                                            </div>
-		                                            <div class="col-md-3">
-		                                            	<div class="row">
-		                                                    <div class="col-md-offset-3 col-md-12">
-		                                                        <button type="submit" class="btn btn-success">Guardar</button>
-		                                                        <a href="{{route('proveedors.index')}}" type="button" class="btn btn-default">Cancelar</a>
-		                                                    </div>
-		                                                </div>
-		                                            </div>
-		                                        </div>
+		                                        <button type="submit" class="btn btn-success">Guardar</button>
+		                                        <a href="{{route('proveedors.index')}}" type="button" class="btn btn-default">Cancelar</a>
 		                                    </div>
                                     </form>
                                 </div>
@@ -110,5 +100,9 @@
 @endsection
 
 @section('scripts')
-
+    <script>
+        @if(session('Proveedorg')=='error')
+            swal("Proveedor no registrado","", "error")
+        @endif
+    </script>
 @endsection

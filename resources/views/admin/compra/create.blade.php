@@ -31,17 +31,43 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label class="control-label col-md-3">Proveedor</label>
-                                                        <div class="col-md-9">
+                                                        <div class="col-md-6">
                                                         <select class="form-control" id="proveedor_id" name="proveedor_id">
                                                             <option value="" disabled selected>Selecccione un proveedor</option>
                                                             @foreach ($proveedors as $proveedor)
                                                             <option value="{{$proveedor->id}}">{{$proveedor->nombre}}</option>
                                                             @endforeach           
-                                                        </select></div>
+                                                        </select>
+                                                        </div>
+
+                                                        <div class="col-md-3">
+                                                            <button type="button" class="btn btn-primary text-right"  data-toggle="modal" data-target="#nprov">+</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3">Producto</label>
+                                                        <div class="col-md-6">
+                                                        <select class="form-control" id="producto_id" name="producto_id">
+                                                            <option value="" disabled selected>Selecccione un producto</option>
+                                                            @foreach ($products as $producto)
+                                                            <option value="{{$producto->id}}">{{$producto->nombre}}</option>
+                                                            @endforeach           
+                                                        </select>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <button type="button" class="btn btn-primary text-right"  data-toggle="modal" data-target="#nprod">+</button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <!--/span-->
-                                                <div class="col-md-6">
+                                                
+                                                <!--/span-->
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
                                                     <label class="control-label col-md-3">IGV</label>
                                                         <div class="col-md-9">
                                                             <div class="input-group bootstrap-touchspin bootstrap-touchspin-injected">
@@ -51,33 +77,19 @@
                                                             </div>
                                                         </div>
                                                 </div>
+                                                
                                                 <!--/span-->
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-4">
+                                                <div class="col-md-3">
                                                     <div class="form-group">
-                                                        <label class="control-label col-md-3">Producto</label>
-                                                        <div class="col-md-9">
-                                                        <select class="form-control" id="producto_id" name="producto_id">
-                                                            <option value="" disabled selected>Selecccione un producto</option>
-                                                            @foreach ($products as $producto)
-                                                            <option value="{{$producto->id}}">{{$producto->nombre}}</option>
-                                                            @endforeach           
-                                                        </select></div>
-                                                    </div>
-                                                </div>
-                                                <!--/span-->
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label class="control-label col-md-3">Cantidad</label>
-                                                        <div class="col-md-9">
+                                                        <label class="control-label col-md-4">Cantidad</label>
+                                                        <div class="col-md-7">
                                                             <input type="number" class="form-control" placeholder="cantidad" id="cantidad" name="cantidad"> </div>
                                                     </div>
                                                 </div>
                                                 <!--/span-->
                                                 
                                                 <!--/span-->
-                                                <div class="col-md-4">
+                                                <div class="col-md-3">
                                                     <div class="form-group">
                                                         <label class="control-label col-md-3">Precio</label>
                                                         <div class="col-md-9">
@@ -85,8 +97,8 @@
                                                     </div>
                                                 </div>
                                                 
-                                                <div class="col-sm-offset-3 col-sm-9 text-right">
-                                                <button type="button" class="btn btn-primary waves-effect waves-light m-t-10" id="agregar">Agregar Producto</button>
+                                                <div class="col-md-2 text-right">
+                                                <button type="button" class="btn btn-primary waves-effect waves-light" id="agregar">Agregar Producto</button>
                                                 </div>
                                                 <!--/span-->
                                             </div>
@@ -149,6 +161,142 @@
                         </div>
                     </div>
                 </div>
+
+                <div id="nprov" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                <h4 class="modal-title">Nuevo Proveedor</h4> </div>
+                                    <div class="modal-body">
+                                        <form action="{{ route('proveedors.store') }}" method="POST">
+                                            @csrf
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-12">
+                                                        <label>RUC</label>
+                                                        <div class="form-group">
+                                                                <div class="input-group">
+                                                                    <input type="text" name="ruc" id="ruc" class="form-control">
+                                                                            <button type="button" class="btn btn-dark" onclick="return buscar2();">
+                                                                                <i class="fas fa-search" style="color: white;"></i>
+                                                                            </button>
+                                                                </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-12">
+                                                        <div class="form-group">
+                                                            <label>Nombre</label>
+                                                            <input type="text" name="nombre" id="nombre" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-12">
+                                                        <div class="form-group">
+                                                            <label>Email</label>
+                                                            <input type="email" name="email" id="email" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                        
+                                                    <div class="col-sm-12 col-md-12">
+                                                        <div class="form-group">
+                                                            <label>Teléfono</label>
+                                                            <input type="number" name="telefono" id="telefono" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-dark" onclick="return limpiar();"><i class="fas fa-eraser"></i></button>
+                                                <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-success waves-effect waves-light">Guardar</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                        
+                                </div>
+                            </div>
+                    </div>
+
+                <div id="nprod" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                <h4 class="modal-title">Nuevo Producto</h4> </div>
+                                    <div class="modal-body">
+                                        <form action="{{ route('productos.store') }}" method="POST">
+                                            @csrf
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-12">
+                                                        <div class="form-group">
+                                                            <label>Nombre</label>
+                                                            <input type="text" name="nombre" id="nombre" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-12">
+                                                        <div class="form-group">
+                                                            <label>Stock</label>
+                                                            <input type="number" name="stock" id="stock" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-12">
+                                                         <div class="form-group">
+                                                            <label>precio de venta</label>
+                                                            <input type="text" class="form-control" id="precio_venta" name="precio_venta">
+                                                        </div>
+                                                    </div>
+                                                        
+                                                    <div class="col-sm-12 col-md-12">
+                                                        <div class="form-group">
+                                                            <label>Categoría</label>
+                                                            <select class="form-control" id="category_id" name="category_id" tabindex="1">
+                                                            @foreach ($categories as $categoria)
+                                                            <option value="{{$categoria->id}}">{{$categoria->nombre}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-12">
+                                                        <div class="form-group">
+                                                            <label>Proveedor</label>
+                                                            <select class="form-control" id="proveedor_id" name="proveedor_id" tabindex="1">
+                                                            @foreach ($proveedors as $proveedor)
+                                                            <option value="{{$proveedor->id}}">{{$proveedor->nombre}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-12">
+                                                        <div class="form-group">
+                                                            <label>Lugar</label>
+                                                            <select class="form-control" name="lugar" tabindex="1">
+                                                            <option value="S1">S1</option>
+                                                            <option value="S2">S2</option>
+                                                            <option value="S3">S3</option>
+                                                            <option value="S4">S4</option>
+                                                            <option value="V1">V1</option>
+                                                            <option value="V2">V2</option>
+                                                            <option value="V3">V3</option>
+                                                            <option value="V4">V4</option>
+                                                            <option value="C1">C1</option>
+                                                            <option value="C2">C2</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-dark" onclick="return limpiar();"><i class="fas fa-eraser"></i></button>
+                                                <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-success waves-effect waves-light">Guardar</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                        
+                                </div>
+                            </div>
+                    </div>
 @endsection
 
 @section('scripts')
@@ -166,44 +314,6 @@
     subtotal = [];
     
     $("#guardar").hide();
-
-
-    var producto_id1 = $('#producto_id');
-    producto_id1.change(function(){
-        $.ajax({
-            url: "http://www.lanube.cu.ma/admin/get_products_by_id",
-            method: 'GET',
-            data:{
-                producto_id1: producto_id1.val(),
-            },
-            success: function(data){
-                $("#code").val(data.code);
-            }
-        });
-    });
-    $(obtener_registro());
-    function obtener_registro(code){
-        $.ajax({
-            url: "http://www.lanube.cu.ma/admin/get_products_by_barcode",
-            type: 'GET',
-            data:{
-                code: code
-            },
-            dataType: 'json',
-            success:function(data){
-                console.log(data);
-                $("#producto_id").val(data.id);
-            }
-        });
-    }
-    $(document).on('keyup', '#code', function(){
-        var valorResultado = $(this).val();
-        if(valorResultado!=""){
-            obtener_registro(valorResultado);
-        }else{
-            obtener_registro();
-        }
-    })
 
     
     function agregar() {
@@ -235,6 +345,11 @@
     function limpiar() {
         $("#cantidad").val("");
         $("#precio").val("");
+        $("#ruc").val("");
+        $("#nombre").val("");
+        $("#direccion").val("");
+        $("#email").val("");
+        $("#telefono").val("");
     }
     
     function totales() {
@@ -266,6 +381,37 @@
         evaluar();
     }
     
+    function buscar2(){
+            var dni=$('#ruc').val();
+            if (dni!='') {
+                $.ajax({
+                    url:"{{ route('buscarRuc') }}",
+                    method:'GET',
+                    data:{dni:dni},
+                    dataType:'json',
+                    success:function(data){
+                        if(data[0]==="nada")
+                        {
+                            $('#ruc').val('');
+                            $('#nombre').val('');
+                        }
+                        else{
+                            $('#nombre').val(data[1]);
+                        }
+                    }
+                });
+            }else{
+                alert('Escriba el RUC!');
+                $('#ruc').focus();
+            }
+
+            return false;
+            
+        }
+
+    @if(session('Comprag')=='error')
+        swal("Compra no registrada","", "error")
+    @endif
 
     </script>
     

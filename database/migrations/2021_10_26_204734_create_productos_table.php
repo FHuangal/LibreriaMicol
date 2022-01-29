@@ -15,10 +15,8 @@ class CreateProductosTable extends Migration
     {
         Schema::create('productos', function (Blueprint $table) {
             $table->id();
-            $table->string('codigo')->unique();
             $table->string('nombre')->unique();
             $table->integer('stock');
-            $table->string('imagen');
             $table->decimal('precio_venta',12,2);
             $table->string('lugar');
             $table->enum('estado',['ACTIVADO','DESACTIVADO'])->default('ACTIVADO');

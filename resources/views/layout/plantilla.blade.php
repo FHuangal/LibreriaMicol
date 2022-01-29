@@ -20,6 +20,8 @@
     <!-- color CSS -->
     <link href="/ampleadmin/css/colors/default.css" id="theme" rel="stylesheet">
 
+    <link href="/ampleadmin/plugins/bower_components/sweetalert/sweetalert.css" rel="stylesheet" type="text/css">
+
     @yield('styles')
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -50,35 +52,73 @@
         <nav class="navbar navbar-default navbar-static-top m-b-0">
             <div class="navbar-header">
                 <div class="top-left-part">
-                        <!-- Logo -->
-                    <a class="logo" href="index.html">
-                        <!-- Logo icon image, you can use font-icon also --><b>
-                        <!--This is dark logo icon--><img src="/ampleadmin/plugins/images/admin-logo.png" alt="home" class="dark-logo" /><!--This is light logo icon--><img src="/ampleadmin/plugins/images/admin-logo-dark.png" alt="home" class="light-logo" />
-                     </b>
-                        <!-- Logo text image you can use text also --><span class="hidden-xs">
-                        <!--This is dark logo text--><img src="/ampleadmin/plugins/images/admin-text.png" alt="home" class="dark-logo" /><!--This is light logo text--><img src="/ampleadmin/plugins/images/admin-text-dark.png" alt="home" class="light-logo" />
+                    <a class="logo" href="">
+                        <span class="hidden-xs">
+                        <img src="/ampleadmin/plugins/images/micol.jpeg" alt="home" class="light-logo" />
                      </span> </a>
                 </div>
                 <!-- /Logo -->
                 <ul class="nav navbar-top-links navbar-left">
                     <li><a href="javascript:void(0)" class="open-close waves-effect waves-light"><i class="ti-menu"></i></a></li>
+                    @if(Auth::user()->rol=="jefe compras" || Auth::user()->rol=="administrador" )
+                    <li class="">
+                        <a class="button waves-effect waves-light" href="{{route('compras.create')}}"> <i class="mdi mdi-cart-plus"></i>
+                        </a></li>
+                    @endif
+                    @if(Auth::user()->rol=="vendedor" || Auth::user()->rol=="administrador" )
+                    <li class="">
+                        <a class="button waves-effect waves-light" href="{{route('ventas.create')}}"> <i class="mdi mdi-cash"></i>
+                        </a></li>
+                    @endif
                 </ul>
 
                 <!-- Search input and Toggle icon -->
                 <ul class="nav navbar-top-links navbar-right pull-right">
                     <li class="dropdown">
-                        <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#"> <img src="/ampleadmin/plugins/images/users/varun.jpg" alt="user-img" width="36" class="img-circle"><b class="hidden-xs">Jhonatan</b><span class="caret"></span> </a>
+                        <a class="dropdown-toggle waves-effect waves-light" data-toggle="dropdown" href="#"> <i class="mdi mdi-bell-outline"></i>
+                            <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
+                        </a>
+                        <ul class="dropdown-menu mailbox animated bounceInDown">
+                            <li>
+                                <div class="drop-title">Notificación de stock</div>
+                            </li>
+                            <li>
+                                @if(Auth::user()->rol=="jefe compras" || Auth::user()->rol=="administrador" )
+                                <div class="message-center">
+                                    @foreach(notificacion() as $noti)
+                                    <a href="{{route('compras.create')}}">
+                                        <div class="mail-contnet">                                            
+                                                <h5 class="text-danger">{{$noti->nombre}}<h5>
+                                                <span class="mail-desc">Cuenta con {{$noti->stock}} de stock</span>
+                                                
+                                        </div>
+                                    </a>
+                                    @endforeach
+                                </div>
+                                @endif
+                            </li>
+                        </ul>
+                        <!-- /.dropdown-messages -->
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#"> <img src="/ampleadmin/plugins/images/user.png" alt="user-img" width="36" class="img-circle"><b class="hidden-xs">{{ Auth::user()->name }}</b><span class="caret"></span> </a>
                         <ul class="dropdown-menu dropdown-user animated flipInY">
                             <li>
                                 <div class="dw-user-box">
-                                    <div class="u-img"><img src="/ampleadmin/plugins/images/users/varun.jpg" alt="user" /></div>
+                                    <div class="u-img"><img src="/ampleadmin/plugins/images/user.png" alt="user" /></div>
                                     <div class="u-text">
-                                        <h4>Jhonatan Colina</h4>
-                                        <p class="text-muted">admin@gmail.com</p></div>
+                                        <h4>{{ Auth::user()->name }}</h4>
+                                        <p class="text-muted">{{ Auth::user()->email }}</p></div>
                                 </div>
                             </li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="/"><i class="fa fa-power-off"></i> Logout</a></li>
+                            <li>
+                                <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="btn m-btn--pill btn-secondary m-btn m-btn--custom m-btn--label-brand m-btn--bolder">
+                                    <i class="fa fa-power-off"></i> Logout</a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                            </li>
                         </ul>
                         <!-- /.dropdown-user -->
                     </li>
@@ -99,45 +139,64 @@
                     <h3><span class="fa-fw open-close"><i class="ti-close ti-menu"></i></span> <span class="hide-menu">Navigation</span></h3> </div>
                 <div class="user-profile">
                     <div class="dropdown user-pro-body">
-                        <div><img src="/ampleadmin/plugins/images/users/varun.jpg" alt="user-img" class="img-circle"></div>
-                        <a href="#" class="dropdown-toggle u-dropdown" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Jhonatan Colina <span class="caret"></span></a>
+                        <div><img src="/ampleadmin/plugins/images/user.png" alt="user-img" class="img-circle"></div>
+                        <a href="#" class="dropdown-toggle u-dropdown" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
                         <ul class="dropdown-menu animated flipInY">
-                            <li><a href="/"><i class="fa fa-power-off"></i> Logout</a></li>
+                            <li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fa fa-power-off"></i> Logout</a></li>
                         </ul>
                     </div>
                 </div>
                 <ul class="nav" id="side-menu">
-                    <li> <a href="/inicio" class="waves-effect"><i class="mdi mdi-av-timer fa-fw" data-icon="v"></i> <span class="hide-menu"> Dashboard </span></a>
+                    <li> <a href="/home" class="waves-effect"><i class="mdi mdi-av-timer fa-fw" data-icon="v"></i> <span class="hide-menu"> Dashboard </span></a>
                     </li>
-
+                    @if(Auth::user()->rol=="administrador")
                     <li> <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-account fa-fw" data-icon="v"></i> <span class="hide-menu"> Usuarios <span class="fa arrow"></span> </span></a>
                         <ul class="nav nav-second-level">
-                            <li> <a href="/categorias"><i class="fa-fw">R</i><span class="hide-menu">Roles</span></a> </li>                        
+                            <li> <a href="/usuarios"><i class="fa-fw">R</i><span class="hide-menu">Roles</span></a> </li>                        
                         </ul>
                     </li>
-
+                    @endif
+                    @if(Auth::user()->rol=="jefe almacén" || Auth::user()->rol=="administrador" )
                     <li> <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-archive fa-fw" data-icon="v"></i> <span class="hide-menu"> Almacén <span class="fa arrow"></span> </span></a>
                         <ul class="nav nav-second-level">
                             <li> <a href="/categorias"><i class="fa-fw">CT</i><span class="hide-menu">Categorías</span></a> </li>
-                            <li> <a href="/productos"><i class="fa-fw">P</i><span class="hide-menu">Productos</span></a> </li>                           
+                            <li> <a href="/productos"><i class="fa-fw">P</i><span class="hide-menu">Productos</span></a></li>                           
                         </ul>
                     </li>
+                    @endif
 
+                    @if(Auth::user()->rol=="jefe compras" || Auth::user()->rol=="administrador" )
                     <li> <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-cart-outline fa-fw" data-icon="v"></i> <span class="hide-menu"> Compras <span class="fa arrow"></span> </span></a>
                         <ul class="nav nav-second-level">
                             <li> <a href="/proveedores"><i class="fa-fw">PV</i><span class="hide-menu">Proveedores</span></a> </li>
-                            <li> <a href="/compras"><i class="fa-fw">RC</i><span class="hide-menu">Registrar Compra</span></a> </li>
+                            <li> <a href="/compras"><i class="fa-fw">RC</i><span class="hide-menu">Mantenedor Compra</span></a> </li>
                         </ul>
                     </li>
+                    @endif
 
+                    @if(Auth::user()->rol=="vendedor" || Auth::user()->rol=="administrador" )
                     <li> <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-cash-multiple fa-fw" data-icon="v"></i> <span class="hide-menu"> Ventas <span class="fa arrow"></span> </span></a>
                         <ul class="nav nav-second-level">
                             <li> <a href="/clientes"><i class="fa-fw">C</i><span class="hide-menu">Clientes</span></a> </li>
-                            <li> <a href="/ventas"><i class="fa-fw">RV</i><span class="hide-menu">Registrar Venta</span></a> </li>
+                            <li> <a href="/ventas"><i class="fa-fw">RV</i><span class="hide-menu">Mantenedor Venta</span></a> </li>
+                        </ul>
+                    </li>
+                    @endif
+                    <li> <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-chart-bar fa-fw" data-icon="v"></i> <span class="hide-menu"> Reportes <span class="fa arrow"></span> </span></a>
+                        <ul class="nav nav-second-level">
+                            @if(Auth::user()->rol=="jefe almacén" || Auth::user()->rol=="administrador" )
+                            <li> <a href="/almacen"><i class="fa-fw">RA</i><span class="hide-menu">Reporte Almacén </span></a> </li>
+                            @endif
+                            @if(Auth::user()->rol=="vendedor" || Auth::user()->rol=="administrador" )
+                            <li> <a href="{{route('ventas.fecha')}}"><i class="fa-fw">RV</i><span class="hide-menu">Reporte Ventas</span></a> </li>
+                            @endif
+                            @if(Auth::user()->rol=="jefe compras" || Auth::user()->rol=="administrador" )
+                            <li> <a href="{{route('compras.fecha')}}"><i class="fa-fw">RC</i><span class="hide-menu">Reporte Compras</span></a> </li>
+                            @endif
                         </ul>
                     </li>
 
-                    <li><a href="/" class="waves-effect"><i class="mdi mdi-logout fa-fw"></i> <span class="hide-menu">Log out</span></a></li>
+                    <li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="waves-effect"><i class="mdi mdi-logout fa-fw"></i> <span class="hide-menu">Log out</span></a></li>
                     <li class="devider"></li>
                     <li><a href="#" class="waves-effect"><i class="far fa-circle text-danger"></i> <span class="hide-menu">Ayuda</span></a></li>
                     <li><a href="#" class="waves-effect"><i class="far fa-circle text-success"></i> <span class="hide-menu">Faqs</span></a></li>
@@ -158,7 +217,7 @@
                 <!-- ============================================================== -->
             </div>
             <!-- /.container-fluid -->
-            <footer class="footer text-center"> 2021 &copy; Colina Terán - Hernández Huangal </footer>
+            <footer class="footer text-center"> 2022 &copy; Colina Terán - Hernández Huangal </footer>
         </div>
         <!-- ============================================================== -->
         <!-- End Page Content -->
@@ -179,6 +238,9 @@
     <script src="/ampleadmin/js/custom.min.js"></script>
     <!--Style Switcher -->
     <script src="/ampleadmin/plugins/bower_components/styleswitcher/jQuery.style.switcher.js"></script>
+
+    <script src="/ampleadmin/plugins/bower_components/sweetalert/sweetalert.min.js"></script>
+    <script src="/ampleadmin/plugins/bower_components/sweetalert/jquery.sweet-alert.custom.js"></script>
 
     @yield('scripts')
 </body>

@@ -8,10 +8,10 @@
 
     <div class="row bg-title">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h4 class="page-title">Cliente</h4> </div>
+                        <h4 class="page-title">Mantenedor cliente</h4> </div>
                     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                         <ol class="breadcrumb">
-                            <li><a href="/inicio">Dashboard</a></li>
+                            <li><a href="/home">Dashboard</a></li>
                             <li class="active">Cliente</li>
                         </ol>
                     </div>
@@ -20,33 +20,30 @@
 @endsection
 
 @section('contenido')
-
-                <div class="col-sm-offset-3 col-sm-9 text-right">
-                    <a href="{{route('clientes.create')}}" class="btn btn-success waves-effect waves-light m-t-10" ><i class="ti-plus"></i> Nuevo</a>
-                </div>
                     
 				<div class="row">
                     <div class="col-sm-12">     
-                        <div class="white-box">                                          
+                        <div class="white-box">
+                            <div class="row text-right">
+                                <a href="{{route('clientes.create')}}" class="btn btn-success waves-effect waves-light"><i class="ti-plus"></i> Nuevo</a>
+                            </div>                                          
                             <div class="table-responsive">              
                                 <table id="myTable" class="table table-striped">
                                     <thead>
                                         <tr>
                                             <th>Nombre</th>
-                                            <th>Dni</th>
-                                            <th>Ruc</th>
+                                            <th>Documento</th>
                                             <th>Dirección</th>
                                             <th>teléfono</th>
                                             <th>Email</th>
-                                            <th>Opciones</th>
+                                            <th style="width:50px;">Acciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($clientes as $cliente)
                                         <tr>
                                             <td>{{$cliente->nombre}}</td>
-                                            <td>{{$cliente->dni}}</td>
-                                            <td>{{$cliente->ruc}}</td>
+                                            <td>{{$cliente->documento}}</td>
                                             <td>{{$cliente->direccion}}</td>
                                             <td>{{$cliente->telefono}}</td>
                                             <td>{{$cliente->email}}</td>
@@ -112,6 +109,19 @@
             });
         });
     });
+
+    @if(session('Clienteg')=='ok')
+        swal("Cliente registrado con éxito","", "success")
+    @endif
+    @if(session('Clientee')=='ok')
+        swal("Cliente actualizado con éxito","", "success")
+    @endif
+    @if(session('Cliented')=='ok')
+        swal("Cliente eliminado con éxito","", "success")
+    @endif
+    @if(session('Cliented')=='error')
+        swal("Cliente no eliminado","", "error")
+    @endif
     </script>
 @endsection
                

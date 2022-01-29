@@ -31,13 +31,18 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label class="control-label col-md-3">Cliente</label>
-                                                        <div class="col-md-9">
+                                                        <div class="col-md-6">
                                                         <select class="form-control" id="cliente_id" name="cliente_id">
                                                             <option value="" disabled selected>Selecccione un cliente</option>
                                                             @foreach ($clientes as $cliente)
                                                             <option value="{{$cliente->id}}">{{$cliente->nombre}}</option>
                                                             @endforeach           
-                                                        </select></div>
+                                                        </select>
+                                                        
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <button type="button" class="btn btn-primary text-right"  data-toggle="modal" data-target="#ncli">+</button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <!--/span-->
@@ -60,7 +65,7 @@
                                                         <div class="col-md-9">
                                                         <select class="form-control" id="producto_id" name="producto_id">
                                                             <option value="" disabled selected>Selecccione un producto</option>
-                                                            @foreach ($products as $producto)
+                                                            @foreach ($productos as $producto)
                                                             <option value="{{$producto->id}}_{{$producto->stock}}_{{$producto->precio_venta}}">{{$producto->nombre}}</option>
                                                             @endforeach           
                                                         </select></div>
@@ -89,7 +94,7 @@
                                             </div>
 
                                             <div class="row">
-                                                <div class="col-md-6">
+                                                <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label class="control-label col-md-3">Cantidad</label>
                                                         <div class="col-md-9">
@@ -100,7 +105,7 @@
                                                 <!--/span-->
                                                 
                                                 <!--/span-->
-                                                <div class="col-md-6">
+                                                <div class="col-md-5">
                                                     <div class="form-group">
                                                         <label class="control-label col-md-3">Descuento</label>
                                                         <div class="col-md-9">
@@ -108,8 +113,8 @@
                                                     </div>
                                                 </div>
                                                 
-                                                <div class="col-sm-offset-3 col-sm-9 text-right">
-                                                <button type="button" class="btn btn-primary waves-effect waves-light m-t-10" id="agregar">Agregar Producto</button>
+                                                <div class="col-md-3 text-right">
+                                                <button type="button" class="btn btn-primary waves-effect waves-light" id="agregar">Agregar Producto</button>
                                                 </div>
                                                 <!--/span-->
                                             </div>
@@ -175,6 +180,58 @@
                         </div>
                     </div>
                 </div>
+
+                <div id="ncli" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                <h4 class="modal-title">Nuevo Cliente</h4> </div>
+                                    <div class="modal-body">
+                                        <form action="{{ route('clientes.store') }}" method="POST">
+                                            @csrf
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-12">
+                                                        <div class="form-group">
+                                                            <label>Documento</label>
+                                                                <div class="input-group">
+                                                                    <input type="text" name="documento" id="documento" class="form-control">
+                                                                        <button type="button" class="btn btn-dark" onclick="return buscar();">
+                                                                            <i class="fas fa-search" style="color: white;"></i>
+                                                                        </button>
+                                                                        <button type="button" class="btn btn-dark" onclick="return buscar2();">
+                                                                            <i class="fas fa-search" style="color: white;"></i>
+                                                                        </button>
+                                                                    
+                                                                </div>
+                                                        </div>
+                                                    </div>
+                                                        <div class="col-sm-12 col-md-12">
+                                                            <div class="form-group">
+                                                                <label>Nombre</label>
+                                                                <input type="text" name="nombre" id="nombre" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-12 col-md-12">
+                                                            <div class="form-group">
+                                                                <label>Teléfono</label>
+                                                                <input type="number" name="telefono" id="telefono" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                            </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-dark" onclick="return limpiar();"><i class="fas fa-eraser"></i></button>
+                                                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-success waves-effect waves-light">Guardar</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                        </div>
 @endsection
 
 @section('scripts')
@@ -272,6 +329,10 @@ function agregar() {
 function limpiar() {
     $("#cantidad").val("");
     $("#descuento").val("0");
+    $("#documento").val("");
+    $("#nombre").val("");
+    $("#telefono").val("0");
+
 }
 function totales() {
     $("#total").html("S/. " + total.toFixed(2));
@@ -299,6 +360,67 @@ function eliminar(index) {
     $("#fila" + index).remove();
     evaluar();
 }
+
+
+function buscar(){
+            var dni=$('#documento').val();
+            if (dni!='') {
+                $.ajax({
+                    url:"{{ route('buscarDni') }}",
+                    method:'GET',
+                    data:{dni:dni},
+                    dataType:'json',
+                    success:function(data){
+                        if(data[0]==="nada")
+                        {
+                            $('#documento').val('');
+                            $('#nombre').val('');
+                        }
+                        else{
+                            $('#nombre').val(data[1] + " " + data[2] + " " + data[3]);
+                        }
+                    }
+                });
+            }else{
+                alert('Escriba el DNI!');
+                $('#documento').focus();
+            }
+
+            return false;
+            
+        }
+
+function buscar2(){
+            var dni=$('#documento').val();
+            if (dni!='') {
+                $.ajax({
+                    url:"{{ route('buscarRuc') }}",
+                    method:'GET',
+                    data:{dni:dni},
+                    dataType:'json',
+                    success:function(data){
+                        if(data[0]==="nada")
+                        {
+                            $('#documento').val('');
+                            $('#nombre').val('');
+                        }
+                        else{
+                            $('#nombre').val(data[1]);
+                        }
+                    }
+                });
+            }else{
+                alert('Escriba el RUC!');
+                $('#documento').focus();
+            }
+
+            return false;
+            
+        }
+
+    @if(session('Ventag')=='error')
+        swal("Venta no registrada","", "error")
+    @endif
 </script>
 
 @endsection

@@ -25,7 +25,6 @@ class StoreRequest extends FormRequest
     {
         return [
             'nombre'=>'string|required|unique:productos|max:255',
-            'imagen'=>'required',
             //|dimensions:min_width=100,min_height=200
             'precio_venta'=>'required',
             'category_id'=>'integer|required|exists:App\Models\Category,id',
@@ -40,9 +39,6 @@ class StoreRequest extends FormRequest
         'nombre.required'=>'Este campo es requerido.',        
         'nombre.unique'=>'El producto ya esta regstrado.',
         'nombre.max'=>'Solo se permite 255 caracteres.',
-
-        'imagen.required'=>'Este campo es requerido.',
-        'imagen.dimensions'=>'Solo se permiten imágenes de 100x200px.', 
         
         'precio_venta.required'=>'Este campo es requerido.',
 

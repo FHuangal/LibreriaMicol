@@ -7,11 +7,11 @@
 
     <div class="row bg-title">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h4 class="page-title">Editar Proveedor</h4> </div>
+                        <h4 class="page-title">Registro de Usuario</h4> </div>
                     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                         <ol class="breadcrumb">
-                            <li><a href="/proveedores">Proveedor</a></li>
-                            <li class="active">Editar Categoria</li>
+                            <li><a href="/usuarios">Usuario</a></li>
+                            <li class="active">Nuevo Usuario</li>
                         </ol>
                     </div>
     </div>
@@ -22,11 +22,11 @@
 				<div class="row">
                     <div class="col-md-12">
                         <div class="panel panel-info">
-                            <div class="panel-heading"> Editar Proveedor </div>
+                            <div class="panel-heading"> Registro de Usuario </div>
                             <div class="panel-wrapper collapse in" aria-expanded="true">
                                 <div class="panel-body">
-                                    <form action="/proveedores/{{$proveedor->id}}" method="POST" class="form-horizontal">
-                                        @csrf
+                                    <form action="{{route('users.store')}}" method="POST" class="form-horizontal">
+                                    	@csrf
                                         @if(count($errors) > 0)
                                                 <div class="alert alert-danger">
                                                     <p>Corrige los siguientes errores:</p>
@@ -37,13 +37,12 @@
                                                     </ul>
                                                 </div>
                                         @endif
-                                        @method('PUT')
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label class="control-label col-md-3">Nombre</label>
                                                         <div class="col-md-9">
-                                                            <input type="text" class="form-control" value="{{$proveedor->nombre}}" id="nombre" name="nombre" required></div>
+                                                            <input type="text" class="form-control" placeholder="name" id="name" name="name" required></div>
                                                     </div>
                                                 </div>
                                                 <!--/span-->
@@ -51,7 +50,7 @@
                                                     <div class="form-group">
                                                         <label class="control-label col-md-3">Email</label>
                                                         <div class="col-md-9">
-                                                            <input type="email" class="form-control" value="{{$proveedor->email}}" id="email" name="email" required></div>
+                                                            <input type="email" class="form-control" placeholder="email" id="email" name="email" required> </div>
                                                     </div>
                                                 </div>
                                                 <!--/span-->
@@ -59,38 +58,35 @@
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label class="control-label col-md-3">Ruc</label>
+                                                        <label class="control-label col-md-3">Contraseña</label>
                                                         <div class="col-md-9">
-                                                            <input type="number" class="form-control" value="{{$proveedor->ruc}}" id="ruc" name="ruc" disabled> </div>
+                                                            <input type="password" class="form-control" placeholder="password" id="password" name="password" required></div>
                                                     </div>
                                                 </div>
-                                                <!--/span-->
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="control-label col-md-3">Dirección</label>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label col-md-3">Rol</label>
                                                         <div class="col-md-9">
-                                                            <input type="text" class="form-control" value="{{$proveedor->direccion}}" id="direccion" name="direccion"></div>
+                                                        <select class="form-control" id="rol" name="rol" tabindex="1">
+                                                            <option value="" disabled selected>Selecccione un rol</option>
+                                                            <option value="administrador">administrador</option>
+                                                            <option value="jefe compras">jefe compras</option>
+                                                            <option value="jefe almacén">jefe almacén</option>
+                                                            <option value="vendedor">vendedor</option>
+                                                            
+                                                        </select>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <!--/span-->
                                             </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="control-label col-md-3">Teléfono</label>
-                                                        <div class="col-md-9">
-                                                            <input type="number" class="form-control" value="{{$proveedor->telefono}}" id="telefono" name="telefono" required> </div>
-                                                    </div>
-                                                </div>
-                                                <!--/span-->
-                                                <div class="col-md-6">        
-                                                </div>
+                                                
                                                 <!--/span-->
                                             </div>                                             
                                             <!--/row-->
 		                                    <div class="form-actions">
-		                                                        <button type="submit" class="btn btn-success">Guardar</button>
-		                                                        <a href="{{route('proveedors.index')}}" type="button" class="btn btn-default">Cancelar</a>
+		                                        <button type="submit" class="btn btn-success">Guardar</button>
+		                                        <a href="{{route('users.index')}}" type="button" class="btn btn-default">Cancelar</a>
 		                                    </div>
                                     </form>
                                 </div>
@@ -102,8 +98,8 @@
 
 @section('scripts')
     <script>
-        @if(session('Proveedore')=='error')
-        swal("Proveedor no actualizado","", "error")
+        @if(session('Usuariog')=='error')
+            swal("Usuario no registrado","", "error")
         @endif
     </script>
 @endsection

@@ -38,13 +38,6 @@
                                                 </div>
                                             @endif
                                             <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="control-label col-md-3">Código</label>
-                                                        <div class="col-md-9">
-                                                            <input type="text" class="form-control" placeholder="codigo" id="codigo" name="codigo" required></div>
-                                                    </div>
-                                                </div>
                                                 <!--/span-->
                                                 <div class="col-md-6">
                                                     <div class="form-group">
@@ -53,16 +46,18 @@
                                                             <input type="text" class="form-control" placeholder="nombre" id="nombre" name="nombre" required> </div>
                                                     </div>
                                                 </div>
-                                                <!--/span-->
-                                            </div>
-                                            <div class="row">
+
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label class="control-label col-md-3">Precio de venta</label>
                                                         <div class="col-md-9">
-                                                            <input type="text" class="form-control" placeholder="precio de venta" id="precio_venta" name="precio_venta" required></div>
+                                                            <input type="number" class="form-control" placeholder="precio de venta" id="precio_venta" name="precio_venta" required></div>
                                                     </div>
                                                 </div>
+                                                <!--/span-->
+                                            </div>
+                                            <div class="row">
+                                                
                                                 <!--/span-->
                                                 <div class="col-md-6">
                                                     <div class="form-group">
@@ -72,25 +67,26 @@
                                                     </div>
                                                 </div>
                                                 <!--/span-->
-                                            </div>
-                                            <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label class="control-label col-md-3">Categoría</label>
                                                         <div class="col-md-9">
-                                                        <select class="form-control" id="category_id" name="category_id" tabindex="1">
+                                                        <select class="form-control" id="category_id" name="category_id">
                                                             @foreach ($categories as $categoria)
                                                             <option value="{{$categoria->id}}">{{$categoria->nombre}}</option>
                                                             @endforeach
                                                         </select></div>
                                                     </div>
                                                 </div>
+                                            </div>
+                                            <div class="row">
+                                                
                                                 <!--/span-->
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label class="control-label col-md-3">Proveedor</label>
                                                         <div class="col-md-9">
-                                                        <select class="form-control" id="proveedor_id" name="proveedor_id" tabindex="1">
+                                                        <select class="form-control" id="proveedor_id" name="proveedor_id">
                                                             @foreach ($proveedors as $proveedor)
                                                             <option value="{{$proveedor->id}}">{{$proveedor->nombre}}</option>
                                                             @endforeach
@@ -98,17 +94,7 @@
                                                         </select></div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="control-label col-md-3">Imagen</label>
-                                                        <div class="col-md-9">
-                                                        <div id="preview"></div>
-                                                        <input type="file" class="form-control" name="imagen" id="imagen" onchange="getImagePreview(event)" required>
-                                                        </div>
-                                                    </div>
-                                                </div>
+
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label class="control-label col-md-3">Lugar</label>
@@ -127,21 +113,12 @@
                                                         </select> </div>
                                                     </div>
                                                 </div>
-                                            </div>                                           
+                                            </div>                                          
                                             <!--/row-->
 		                                    <div class="form-actions">
-		                                        <div class="row">
-		                                            <div class="col-md-9">
-		                                            </div>
-		                                            <div class="col-md-3">
-		                                            	<div class="row">
-		                                                    <div class="col-md-offset-3 col-md-12">
-		                                                        <button type="submit" class="btn btn-success">Guardar</button>
-		                                                        <a href="{{route('productos.index')}}" type="button" class="btn btn-default">Cancelar</a>
-		                                                    </div>
-		                                                </div>
-		                                            </div>
-		                                        </div>
+		                                        <button type="submit" class="btn btn-success">Guardar</button>
+		                                        <a href="{{route('productos.index')}}" type="button" class="btn btn-default">Cancelar</a>
+
 		                                    </div>
                                     </form>
                                 </div>
@@ -153,15 +130,9 @@
 
 @section('scripts')
     <script type="text/javascript">
-        function getImagePreview(event) {
-            var image=URL.createObjectURL(event.target.files[0]);
-            var imagediv=document.getElementById('preview');
-            var newimg=document.createElement('img');
-            imagediv.innerHTML='';
-            newimg.src=image;
-            newimg.width="300";
-            imagediv.appendChild(newimg);
-            // body...
-        }
+
+            @if(session('Productog')=='error')
+        swal("Producto no registrado","", "error")
+            @endif
     </script>
 @endsection

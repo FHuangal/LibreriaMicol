@@ -6,43 +6,14 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
-    //
-    public function login(Request $request)
+     public function __construct()
     {
-
-    	$data=request()->validate([
-    		'name'=>'required',
-    		'password'=>'required'
-    	],
-    	[
-    		'name.required'=>'Ingrese Ususario',
-    		'password.required'=>'Ingrese Contraseña',
-    	]);
-    	if (Auth::attempt($data)) {
-    		$con='OK';
-    	}
-    	$name=$request->get('name');
-    	$query=User::where('name','=',$name)->get();
-    	if($query->count()!=0)
-    	{
-    		$hashp=$query[0]->password;
-    		$password=$request->get('password');
-    		if(password_verify($password,$hashp))
-    		{
-    			return view('index');
-    		}
-    		else
-    		{
-    			return back()->withErrors(['password'=>'Contraseña no válida'])->withInput([request('password')]);
-    		}
-    	}
-    	else
-    	{
-    		return back()->withErrors(['name'=>'Usuario no válido'])->withInput([request('name')]);
-    	}
+        $this->middleware('auth');
     }
 
     public function index()
@@ -56,46 +27,71 @@ class UserController extends Controller
     }
     public function store(Request $request)
     {
-        $user = User::create($request->all());
-        $user->update(['password'=> Hash::make($request->password)]);
-        $user->roles()->sync($request->get('roles'));
-        return redirect()->route('users.index');
+        DB::beginTransaction();
+        try {
+            $user = new User();
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->rol = $request->rol;
+            $user->password = Hash::make($request['password']);
+            $user->save();
+            DB::commit();
+            return redirect()->route('users.index')->with('Usuariog','ok');
+        } catch (\Exception $e) {
+            DB::rollback();
+            Log::info($e);
+            return redirect()->route('users.create')->with('Usuariog','error');
+        }
+            
     }
     public function show(User $user)
     {
-        $total_purchases = 0;
-        foreach ($user->sales as $key =>  $sale) {
-            $total_purchases+=$sale->total;
-        }
-        $total_amount_sold = 0;
-        foreach ($user->purchases as $key =>  $purchase) {
-            $total_amount_sold+=$purchase->total;
-        }
-        return view('admin.user.show', compact('user', 'total_purchases', 'total_amount_sold'));
+        
     }
-    public function edit(User $user)
+
+    public function edit($id)
     {
-        $roles = Role::get();
-        return view('admin.user.edit', compact('user', 'roles'));
+        $usuario=User::find($id);
+        return view('admin.user.edit', compact('usuario'));
     }
-    public function update(Request $request, User $user)
+    public function update(Request $request, $id)
     {
-        if ($user->id == 1) {
-            return redirect()->route('users.index');
-        }else{
-            $user->update($request->all());
-            $user->roles()->sync($request->get('roles'));
-            return redirect()->route('users.index');
+        DB::beginTransaction();
+        try {
+            $usuario=User::find($id);
+            if ($usuario->rol == "administrador") {
+                DB::commit();
+                return redirect()->route('users.index')->with('Usuarioe','error');
+            }else{
+                $usuario->update($request->all());
+                DB::commit();
+                return redirect()->route('users.index')->with('Usuarioe','ok');
+            }
+        } catch (\Exception $e) {
+            DB::rollback();
+            Log::info($e);
+            return redirect()->route('users.edit')->with('Usuarioe','error');
         }
+        
     }
-    public function destroy(User $user)
+    public function destroy($id)
     {
-        if ($user->id == 1) {
-            return back();
-        } else {
-            $user->delete();
-            return back();
+        DB::beginTransaction();
+        try {
+            $usuario=User::find($id);
+            if ($usuario->rol == "administrador") {
+                return back()->with('Usuariod','error');
+            } else {
+                DB::commit();
+                $usuario->delete();
+                return back()->with('Usuariod','ok');
+            }
+        } catch (\Exception $e) {
+            DB::rollback();
+            Log::info($e);
+            return back()->with('Usuariod','error');
         }
+        
     }
 
 }

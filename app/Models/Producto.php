@@ -10,10 +10,8 @@ class Producto extends Model
     use HasFactory;
 
     protected $fillable = [
-        'codigo',
         'nombre',
         'stock',
-        'imagen',
         'precio_venta',
         'lugar',
         'estado',
@@ -27,4 +25,5 @@ class Producto extends Model
     public function proveedor(){
         return $this -> belongsTo(Proveedor::class);
     }
+
 }

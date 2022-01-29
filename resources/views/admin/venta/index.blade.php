@@ -8,10 +8,10 @@
 
     <div class="row bg-title">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h4 class="page-title">Venta</h4> </div>
+                        <h4 class="page-title">Mantenedor venta</h4> </div>
                     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                         <ol class="breadcrumb">
-                            <li><a href="/inicio">Dashboard</a></li>
+                            <li><a href="/home">Dashboard</a></li>
                             <li class="active">Venta</li>
                         </ol>
                     </div>
@@ -21,42 +21,35 @@
 
 @section('contenido')
 
-				<div class="col-sm-offset-3 col-sm-9 text-right">
-                    <a href="{{route('ventas.create')}}" class="btn btn-success waves-effect waves-light m-t-10" ><i class="ti-plus"></i> Nuevo</a>
-                </div>
-                    
 				<div class="row">
                     <div class="col-sm-12">     
-                        <div class="white-box">                                          
+                        <div class="white-box">
+                            <div class="row text-right">
+                                <a href="{{route('ventas.create')}}" class="btn btn-success waves-effect waves-light m-t-10" ><i class="ti-plus"></i> Nuevo</a>
+                            </div>                                          
                             <div class="table-responsive">              
                                 <table id="myTable" class="table table-striped">
                                     <thead>
                                         <tr>
-                                        	<th>Id</th>
                                             <th>Cliente</th>
                                             <th>Nombre Usuario</th>
                                             <th>Fecha de venta</th>
                                             <th>Descuento</th>
                                             <th>Total</th>
-                                            <th>Acciones</th>
+                                            <th style="width:50px;">Acciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($ventas as $venta)
                                         <tr>
-                                            <td>{{$venta->id}}</td>
+                                           
                                             <td>{{$venta->cliente->nombre}}</td>
                                             <td>{{$venta->user->name}}</td>
                                             <td>{{$venta->venta_date}}</td>
                                             <td>{{$venta->tax}}</td>
                                             <td>{{$venta->total}}</td>
-                                            <td>
-                                                <form method="POST" action="">
-                                                    @csrf
-                                                    <a href="" class="text-inverse p-r-10" data-toggle="tooltip" title="Edit"><i class="ti-marker-alt"></i></a> 
-                                                    <a href="" class="text-inverse p-r-10" data-toggle="tooltip" title="Imprimir"><i class="ti-printer"></i></a> 
-
-                                                </form>
+                                            <td class="text-center">
+                                                <a href="{{route('venta.voucher', $venta->id)}}" class="text-inverse p-r-10" data-toggle="tooltip" title="Imprimir"><i class="ti-printer"></i></a>
                                             </td>
                                         </tr>
                                         @endforeach

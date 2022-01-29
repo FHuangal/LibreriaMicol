@@ -10,10 +10,10 @@
 
     <div class="row bg-title">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h4 class="page-title">Producto</h4> </div>
+                        <h4 class="page-title">Mantenedor producto</h4> </div>
                     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                         <ol class="breadcrumb">
-                            <li><a href="/inicio">Dashboard</a></li>
+                            <li><a href="/home">Dashboard</a></li>
                             <li class="active">Producto</li>
                         </ol>
                     </div>
@@ -23,36 +23,31 @@
 
 @section('contenido')
                 
-                <div class="col-sm-offset-3 col-sm-9 text-right">
-                    <a href="{{route('productos.create')}}" class="btn btn-success waves-effect waves-light m-t-10" ><i class="ti-plus"></i> Nuevo</a>
-                </div>
-                    
 				<div class="row">
                     <div class="col-sm-12">     
-                        <div class="white-box">                                          
+                        <div class="white-box">
+                            <div class="row text-right">
+                                <a href="{{route('productos.create')}}" class="btn btn-success waves-effect waves-light" ><i class="ti-plus"></i> Nuevo</a>
+                            </div>                                          
                             <div class="table-responsive">              
                                 <table id="myTable" class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th>Codigo</th>
                                             <th>Nombre</th>
                                             <th>Stock</th>
-                                            <th>Imagen</th>
                                             <th>Precio de Venta (Unid) </th>
                                             <th>Categoría</th>
                                             <th>Lugar</th>
-                                            <th>Acciones</th>
+                                            <th style="width:50px;">Acciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($productos as $producto)
                                         <tr>
-                                            <td>{{$producto->codigo}}</td>
                                             <td>{{$producto->nombre}}</td>
                                             <td>{{$producto->stock}} u.</td>
-                                            <td><img src="{{asset('/images/products/'.$producto->imagen)}}"></td>
                                             <td>S/. {{$producto->precio_venta}}</td>
-                                            <td>{{$producto->category->nombre}}</td>
+                                            <td>{{$producto->category}}</td>
                                             <td>{{$producto->lugar}}</td>
                                             <td>
                                                 <form method="POST" action="{{route('productos.destroy',$producto)}}">
@@ -117,6 +112,16 @@
             // Order by the grouping
         });
     });
+
+    @if(session('Productog')=='ok')
+        swal("Producto registrado con éxito","", "success")
+    @endif
+    @if(session('Productoe')=='ok')
+        swal("Producto actualizado con éxito","", "success")
+    @endif
+    @if(session('Productod')=='ok')
+        swal("Producto eliminado con éxito","", "success")
+    @endif
     </script>
 @endsection
                

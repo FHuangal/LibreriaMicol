@@ -28,8 +28,6 @@ class UpdateRequest extends FormRequest
 
             'email'=>'required|email|string|max:200',
 
-            'ruc'=>'required|string|min:10|max:10',
-
             'direccion'=>'nullable|string|max:255',
 
             'telefono'=>'required|string|min:9|max:9',
@@ -39,26 +37,20 @@ class UpdateRequest extends FormRequest
     public function messages()
     {
         return[
-        'nombre.required'=>'Este campo es requerido.',
+        'nombre.required'=>'El campo nombre es requerido.',
         'nombre.string'=>'El valor no es correcto.',
         'nombre.max'=>'Solo se permite 255 caracteres.',
 
-        'email.required'=>'Este campo es requerido.',
+        'email.required'=>'El campo email es requerido.',
         'email.email'=>'No es un correo electronico.',
         'email.string'=>'El valor no es correcto.',
         'email.max'=>'Solo se permite 255 caracteres.',
         'email.unique'=>'Ya se encuentra registrado.',
 
-        'ruc.required'=>'Este campo es requerido.',
-        'ruc.string'=>'El valor no es correcto.',
-        'ruc.max'=>'Solo se permiten 10 caracteres.',
-        'ruc.min'=>'Se requiere de 10 caracteres.',
-        'ruc.unique'=>'Ya se encuentra registrado.',
-
         'direccion.max'=>'Solo se permiten 255 caracteres.',
         'direccion.string'=>'El valor no es correcto.',
 
-        'telefono.required'=>'Este campo es requerido.',
+        'telefono.required'=>'El campo telefono es requerido.',
         'telefono.string'=>'El valor no es correcto.',
         'telefono.max'=>'Solo se permiten 9 caracteres.',
         'telefono.min'=>'Se requiere de 9 caracteres.',

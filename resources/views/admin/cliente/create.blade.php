@@ -27,6 +27,16 @@
                                 <div class="panel-body">
                                     <form action="{{route('clientes.store')}}" method="POST" class="form-horizontal">
                                     	@csrf
+                                        @if(count($errors) > 0)
+                                                <div class="alert alert-danger">
+                                                    <p>Corrige los siguientes errores:</p>
+                                                    <ul>
+                                                        @foreach ($errors->all() as $message)
+                                                            <li>{{ $message }}</li>
+                                                        @endforeach
+                                                    </ul>
+                                                </div>
+                                        @endif
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
@@ -38,34 +48,25 @@
                                                 <!--/span-->
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label class="control-label col-md-3">DNI</label>
+                                                        <label class="control-label col-md-3">Documento</label>
                                                         <div class="col-md-9">
-                                                            <input type="number" class="form-control" placeholder="DNI" id="dni" name="dni" required> </div>
+                                                            <input type="number" class="form-control" id="documento" name="documento" required> </div>
                                                     </div>
                                                 </div>
                                                 <!--/span-->
                                             </div>
 
                                             <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="control-label col-md-3">RUC</label>
-                                                        <div class="col-md-9">
-                                                            <input type="number" class="form-control" placeholder="RUC" id="ruc" name="ruc"></div>
-                                                    </div>
-                                                </div>
                                                 <!--/span-->
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label class="control-label col-md-3">Dirección</label>
                                                         <div class="col-md-9">
-                                                            <input type="text" class="form-control" placeholder="Dirección" id="direccion" name="direccion" required> </div>
+                                                            <input type="text" class="form-control" placeholder="Dirección" id="direccion" name="direccion"> </div>
                                                     </div>
                                                 </div>
                                                 <!--/span-->
-                                            </div>
 
-                                            <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label class="control-label col-md-3">Teléfono</label>
@@ -73,6 +74,10 @@
                                                             <input type="number" class="form-control" placeholder="Teléfono" id="telefono" name="telefono" required></div>
                                                     </div>
                                                 </div>
+                                            </div>
+
+                                            <div class="row">
+                                                
                                                 <!--/span-->
                                                 <div class="col-md-6">
                                                     <div class="form-group">
@@ -85,18 +90,8 @@
                                             </div>                                                    
                                             <!--/row-->
 		                                    <div class="form-actions">
-		                                        <div class="row">
-		                                            <div class="col-md-9">
-		                                            </div>
-		                                            <div class="col-md-3">
-		                                            	<div class="row">
-		                                                    <div class="col-md-offset-3 col-md-12">
-		                                                        <button type="submit" class="btn btn-success">Guardar</button>
-		                                                        <a href="{{route('clientes.index')}}" type="button" class="btn btn-default">Cancelar</a>
-		                                                    </div>
-		                                                </div>
-		                                            </div>
-		                                        </div>
+		                                        <button type="submit" class="btn btn-success">Guardar</button>
+		                                        <a href="{{route('clientes.index')}}" type="button" class="btn btn-default">Cancelar</a>
 		                                    </div>
                                     </form>
                                 </div>
@@ -107,5 +102,9 @@
 @endsection
 
 @section('scripts')
-
+    <script>
+            @if(session('Clienteg')=='error')
+        swal("Cliente no registrado","", "error")
+            @endif
+    </script>
 @endsection

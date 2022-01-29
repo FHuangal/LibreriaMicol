@@ -6,16 +6,24 @@ use App\Models\Producto;
 use App\Models\Category;
 use App\Models\Proveedor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Requests\Producto\StoreRequest;
 use App\Http\Requests\Producto\UpdateRequest;
+use Illuminate\Support\Facades\Log;
 
 class ProductoController extends Controller
 {
-
+     public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
-        $productos = Producto::with('Category')->get();
-        
+        $productos = Producto::join('categories as c', 'c.id', 'productos.category_id')
+        ->select('productos.*', 'c.nombre as category')
+        ->where('productos.stock', '>', '0')
+        ->where('productos.estado', '=', 'ACTIVADO')
+        ->get();
         return view('admin.producto.index',compact('productos'));
     }
 
@@ -29,23 +37,24 @@ class ProductoController extends Controller
 
     public function Store(StoreRequest $request)
     {
-
-        $data = $request->all();
-        if($request->hasFile('imagen')){
-            $destination_path = '/images/products';
-            $imagen = $request->file('imagen');
-            $img_name = $imagen->getClientOriginalName();
-            $path = $request->file('imagen')->storeAs($destination_path, $img_name);
-            $data['imagen'] = $img_name;
+        DB::beginTransaction();
+        try {
+            $data = $request->all();
+            Producto::create($data);
+            DB::commit();
+            return redirect()->route('productos.index')->with('Productog','ok');
+        } catch (\Exception $e) {
+            DB::rollback();
+            Log::info($e);
+            return redirect()->route('productos.create')->with('Productog','error');
         }
-        Producto::create($data);
-        return redirect()->route('productos.index');
+        
     }
 
   
     public function show(Producto $producto)
     {
-        return view('admin.producto.show', compact('producto'));
+        
     }
 
     public function edit($id)
@@ -59,14 +68,26 @@ class ProductoController extends Controller
 
     public function Update(UpdateRequest $request, Producto $producto)
     {
-        $producto->update($request->all());
-        return redirect()->route('productos.index');
+        DB::beginTransaction();
+        try {
+            $producto->update($request->all());
+            DB::commit();
+            return redirect()->route('productos.index')->with('Productoe','ok');
+        } catch (\Exception $e) {
+            DB::rollback();
+            Log::info($e);
+            return redirect()->route('productos.edit')->with('Productoe','error');
+        }
+        
     }
 
    
-    public function destroy(Producto $producto)
+    public function destroy($id)
     {
-            $producto->delete();
-            return redirect()->route('productos.index');
+
+            $producto=Producto::find($id);
+            $producto->estado="DESACTIVADO";
+            $producto->update();
+            return redirect()->route('productos.index')->with('Productod','ok');
     }
 }

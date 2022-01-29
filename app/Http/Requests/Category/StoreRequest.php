@@ -31,11 +31,11 @@ class StoreRequest extends FormRequest
     public function messages()
     {
         return[
-        'nombre.required'=>'Este campo es requerido.',
-        'nombre.string'=>'El valor no es correcto.',
-        'nombre.max'=>'Solo se permite 50 caracteres.',
-        'descripcion.string'=>'El valor no es correcto.',
-        'descripcion.max'=>'Solo se permite 255 caracteres.',
+        'nombre.required'=>'El campo nombre es requerido.',
+        'nombre.string'=>'El valor para nombre no es correcto.',
+        'nombre.max'=>'Solo se permite 50 caracteres como nombre.',
+        'descripcion.string'=>'El valor para descripcion no es correcto.',
+        'descripcion.max'=>'Solo se permite 255 caracteres como descripcion.',
         ];
     }
 
