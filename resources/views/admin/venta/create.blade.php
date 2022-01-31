@@ -45,8 +45,21 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-2">B/F</label>
+                                                        <div class="col-md-8">
+                                                        <select class="form-control" id="comprobante_id" name="comprobante_id">
+                                                            <option value="" disabled selected>Tipo</option>
+                                                            @foreach ($comprobante as $c)
+                                                            <option value="{{$c->id}}">{{$c->tipo}}</option>
+                                                            @endforeach           
+                                                        </select>  
+                                                        </div>
+                                                    </div>
+                                                </div>
                                                 <!--/span-->
-                                                <div class="col-md-6">
+                                                <div class="col-md-3">
                                                     <label class="control-label col-md-3">IGV</label>
                                                         <div class="col-md-9">
                                                             <div class="input-group bootstrap-touchspin bootstrap-touchspin-injected">
@@ -420,6 +433,12 @@ function buscar2(){
 
     @if(session('Ventag')=='error')
         swal("Venta no registrada","", "error")
+    @endif
+    @if(session('Ventag')=='ruc')
+        swal("Venta no registrada","No se puede crear una boleta para un cliente con RUC", "error")
+    @endif
+    @if(session('Ventag')=='dni')
+        swal("Venta no registrada","No se puede crear una factura para un cliente con DNI", "error")
     @endif
 </script>
 

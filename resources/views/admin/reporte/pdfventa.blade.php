@@ -47,6 +47,18 @@
 <script src="/ampleadmin/plugins/bower_components/Chart.js/Chart.min.js"></script>
 <script type="text/javascript">
 
+    function imprimir() {
+            if (window.print) {
+                window.print();
+            } else {
+                alert("La función de impresion no esta soportada por su navegador.");
+            }
+        }
+
+        function cancelar(){
+            window.history.back();
+        }
+
 		new Chart(document.getElementById("venta_M"),
 	        {
 	            type: 'line',
@@ -74,17 +86,7 @@
 	                }
 	            });
 
-	function imprimir() {
-            if (window.print) {
-                window.print();
-            } else {
-                alert("La función de impresion no esta soportada por su navegador.");
-            }
-        }
-
-        function cancelar(){
-        	window.history.back();
-        }
+	
     
 </script>
 </html>

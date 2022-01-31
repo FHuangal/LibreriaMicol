@@ -13,6 +13,7 @@ class Venta extends Model
 
     'cliente_id',
     'user_id',
+    'comprobante_id',
     'venta_date',
     'tax',
     'total',
@@ -29,4 +30,8 @@ public function DetalleVenta(){
     return $this->hasMany(DetalleVenta::class);
 }
 
+public function comprobante(){
+
+    return $this->belongsTo(Comprobante::class,'comprobante_id');
+    }
   }

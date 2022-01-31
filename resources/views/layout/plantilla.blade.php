@@ -21,6 +21,8 @@
     <link href="/ampleadmin/css/colors/default.css" id="theme" rel="stylesheet">
 
     <link href="/ampleadmin/plugins/bower_components/sweetalert/sweetalert.css" rel="stylesheet" type="text/css">
+    <!-- Toastr style -->
+    <link href="{{asset('Inspinia/css/plugins/toastr/toastr.min.css')}}" rel="stylesheet">
 
     @yield('styles')
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -101,7 +103,7 @@
                         <!-- /.dropdown-messages -->
                     </li>
                     <li class="dropdown">
-                        <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#"> <img src="/ampleadmin/plugins/images/user.png" alt="user-img" width="36" class="img-circle"><b class="hidden-xs">{{ Auth::user()->name }}</b><span class="caret"></span> </a>
+                        <a class="dropdown-toggle profile-pic" data-toggle="dropdown"> <img src="/ampleadmin/plugins/images/user.png" alt="user-img" width="36" class="img-circle"><b class="hidden-xs">{{ Auth::user()->name }}</b><span class="caret"></span> </a>
                         <ul class="dropdown-menu dropdown-user animated flipInY">
                             <li>
                                 <div class="dw-user-box">
@@ -198,7 +200,7 @@
 
                     <li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="waves-effect"><i class="mdi mdi-logout fa-fw"></i> <span class="hide-menu">Log out</span></a></li>
                     <li class="devider"></li>
-                    <li><a href="#" class="waves-effect"><i class="far fa-circle text-danger"></i> <span class="hide-menu">Ayuda</span></a></li>
+                    <li><a href="{{route('ayuda')}}" class="waves-effect"><i class="far fa-circle text-danger"></i> <span class="hide-menu">Ayuda</span></a></li>
                     <li><a href="#" class="waves-effect"><i class="far fa-circle text-success"></i> <span class="hide-menu">Faqs</span></a></li>
                 </ul>
             </div>
@@ -241,6 +243,8 @@
 
     <script src="/ampleadmin/plugins/bower_components/sweetalert/sweetalert.min.js"></script>
     <script src="/ampleadmin/plugins/bower_components/sweetalert/jquery.sweet-alert.custom.js"></script>
+    <!-- Toastr script -->
+    <script src="{{asset('Inspinia/js/plugins/toastr/toastr.min.js')}}"></script>
 
     @yield('scripts')
 </body>

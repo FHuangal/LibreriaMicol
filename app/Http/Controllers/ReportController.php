@@ -73,4 +73,8 @@ class ReportController extends Controller
         group by p.nombre, p.id order by sum(dv.cantidad) desc limit 5');
         return view('admin.reporte.pdfalmacen',compact('productosv'));
     }
+
+    public function ayuda(){
+        return view('admin.help.ayuda');
+    }
 }

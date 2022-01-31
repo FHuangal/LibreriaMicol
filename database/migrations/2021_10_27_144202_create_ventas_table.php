@@ -21,15 +21,23 @@ class CreateVentasTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
       
-            $table->dateTime('venta_date');
+            $table->date('venta_date');
 
             $table->decimal('tax');
             $table->decimal('total');
 
             $table->enum('estado',['VALIDO','CANCELADO'])->default('VALIDO');
 
+            $table->text('hash')->nullable();
+            $table->longText('ruta_qr')->nullable();
+            $table->longText('ruta_pdf')->nullable();
+            $table->enum('sunat',['0','1','2'])->default('0');
             
+            $table->unsignedInteger("comprobante_id");
+            $table->foreign('comprobante_id')->references("id")->on("comprobante")->onDelete("cascade");
+
             $table->timestamps();
+
         });
     }
 
