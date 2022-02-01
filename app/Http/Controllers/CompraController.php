@@ -52,6 +52,7 @@ class CompraController extends Controller
             'user_id'=>Auth::user()->id,
             'compra_date'=>Carbon::now('America/Lima'),
         ]);
+            
 
         foreach($request->productlist as $key => $producto){
 

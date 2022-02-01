@@ -189,7 +189,7 @@
                                                         8. Boton para registrar los datos. <br>
                                                     </div>
                                                     <hr>
-                                                    <img src="{{ asset('/ampleadmin/plugins/images/venta.jpg') }}"  style="width: 100%">
+                                                    <img src="{{ asset('/ampleadmin/plugins/images/modal.jpg') }}"  style="width: 100%">
                                                     <hr>
                                                 </div>
                                                 <hr>

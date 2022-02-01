@@ -28,8 +28,6 @@ class CreateComprasTable extends Migration
 
             $table->enum('estado',['VALIDO','CANCELADO'])->default('VALIDO');
 
-            $table->string('picture');
-
             $table->timestamps();
 
         });
