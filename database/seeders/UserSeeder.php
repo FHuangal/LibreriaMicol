@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\Comprobante;
+use App\Models\Proveedor;
+use App\Models\Producto;
 use App\Models\User;
 use App\Models\Category;
 use Illuminate\Database\Seeder;
@@ -50,6 +52,23 @@ class UserSeeder extends Seeder
         ]);
         Category::create([
             'nombre' => 'Categoria E',
+        ]);
+        Proveedor::create([
+            'nombre' => 'TAY LOY S.A',
+            'email' => 'tayloy@gmail.com',
+            'ruc' => '20100049181',
+            'direccion' => 'Chiclayo',
+            'telefono' => '956749576', 
+        ]);
+
+        Producto::create([
+            'nombre'=>'Producto 1',
+            'stock'=>'999',
+            'precio_venta'=>'1.5',
+            'lugar'=>'S1',
+            'estado'=>'ACTIVADO',
+            'category_id'=>'1',
+            'proveedor_id'=>'1',
         ]);
     }
 }
