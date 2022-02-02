@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Comprobante;
 use App\Models\User;
+use App\Models\Category;
 use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
@@ -33,6 +34,22 @@ class UserSeeder extends Seeder
             'email' => 'admin@gmail.com',
             'password' => bcrypt('12345678'),
             'rol' => 'administrador',
+        ]);
+
+        Category::create([
+            'nombre' => 'Categoria A',
+        ]);
+        Category::create([
+            'nombre' => 'Categoria B',
+        ]);
+        Category::create([
+            'nombre' => 'Categoria C',
+        ]);
+        Category::create([
+            'nombre' => 'Categoria D',
+        ]);
+        Category::create([
+            'nombre' => 'Categoria E',
         ]);
     }
 }
