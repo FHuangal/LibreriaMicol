@@ -1,12 +1,20 @@
 <?php
 use App\Models\Producto;
 use Carbon\Carbon;
+use App\Models\Tiempo;
+use Illuminate\Support\Facades\DB;
 
 
 function notificacion()
 {
     return Producto::where('stock', '<=', 10)
     ->orderBy('id', 'desc')
+    ->get();
+}
+
+function notitiempo()
+{
+    return Tiempo::select(DB::raw("(tiempo_final - tiempo_inicio) as Resta"))
     ->get();
 }
 

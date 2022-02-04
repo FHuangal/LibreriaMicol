@@ -18,6 +18,9 @@ use Illuminate\Support\Facades\Route;
 });*/
 
 
+
+
+
 Route::get('/', function () {
     return view('auth.login');
 });
@@ -27,6 +30,8 @@ Route::get('/offline', function()
 {
 	return view('vendor/laravelpwa/offline');
 });
+
+Route::get('/getUnegocio','App\Http\Controllers\VentaController@getUnegocio')->name('getUnegocio');
 
 Route::get('sunat/{id}', 'VentaController@sunat')->name('venta.sunat');
 Route::get('/ayuda', 'ReportController@ayuda')->name('ayuda');

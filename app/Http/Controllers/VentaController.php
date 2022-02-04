@@ -19,6 +19,7 @@ use App\Http\Requests\Venta\UpdateRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Barryvdh\DomPDF\Facade as PDF;
+use App\Models\Tiempo;
 
 class VentaController extends Controller
 {
@@ -42,6 +43,11 @@ class VentaController extends Controller
         ->where('productos.stock', '>', '0')
         ->where('productos.estado', '=', 'ACTIVADO')
         ->get();
+         
+        $tiempo = Carbon::now()->format('s.v');
+        $cuenta = Tiempo::findOrFail(1);
+        $cuenta -> tiempo_inicio = $tiempo;
+        $cuenta -> save(); 
         return view('admin.venta.create', compact('clientes','productos','comprobante'));
     }
 
@@ -82,6 +88,11 @@ class VentaController extends Controller
         
         $venta->DetalleVenta()->createMany($results);
         DB::commit();
+
+        $tiempo = Carbon::now()->format('s.v');
+        $cuenta = Tiempo::findOrFail(1);
+        $cuenta -> tiempo_final = $tiempo;
+        $cuenta -> save(); 
 
         return redirect('/voucher/'.$venta->id);
 
@@ -375,4 +386,15 @@ class VentaController extends Controller
         }
 
     }
+
+    public function getUnegocio()
+    {
+        $d = Carbon::now()->format('s.v');
+
+        $time = Tiempo::findOrFail(2);
+        $time->tiempo_inicio=$d;
+        $time->save();
+        return;
+    }
+    
 }

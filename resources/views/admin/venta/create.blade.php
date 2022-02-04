@@ -72,18 +72,74 @@
                                                 <!--/span-->
                                             </div>
                                             <div class="row">
-                                                <div class="col-md-4">
+                                                <div class="col-md-3">
                                                     <div class="form-group">
                                                         <label class="control-label col-md-3">Producto</label>
                                                         <div class="col-md-9">
-                                                        <select class="form-control" id="producto_id" name="producto_id">
-                                                            <option value="" disabled selected>Selecccione un producto</option>
-                                                            @foreach ($productos as $producto)
-                                                            <option value="{{$producto->id}}_{{$producto->stock}}_{{$producto->precio_venta}}">{{$producto->nombre}}</option>
-                                                            @endforeach           
-                                                        </select></div>
+                                                            <input type="hidden" id="producto_id">
+                                                            <input type="text" class="form-control" id="nombre_producto"> 
+                                                        </div>
                                                     </div>
                                                 </div>
+                                                <div class="col-md-1">
+                                                    <button type="button" id="llamar" class="btn btn-primary text-right"  data-toggle="modal" data-target="#nprod">+</button>
+                                                </div>
+
+
+                                                <div id="nprod" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                                                    <div class="modal-dialog modal-lg">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                                <h4 class="modal-title">Nuevo Cliente</h4> </div>
+                                                                    <div class="modal-body">                                                                  
+                                                                            <div class="modal-body">
+                                                                                <div class="row">
+                                                                                    <div class="col-sm-12 col-md-12">
+                                                                                                    
+                                                                                            <table id="myTable" class="table table-striped">
+                                                                                                <thead>
+                                                                                                    <tr>
+                                                                                                        <th>Nombre</th>
+                                                                                                        <th>Stock</th>
+                                                                                                        <th>Precio de Venta (Unid) </th>
+                                                                                                        <th>Lugar</th>
+                                                                                                        <th style="width:50px;">Acciones</th>
+                                                                                                    </tr>
+                                                                                                </thead>
+                                                                                                <tbody>
+                                                                                                    @foreach ($productos as $producto)
+                                                                                                    <tr>
+                                                                                                        <td>{{$producto->nombre}}</td>
+                                                                                                        <td>{{$producto->stock}} u.</td>
+                                                                                                        <td>S/. {{$producto->precio_venta}}</td>
+                                                                                                        <td>{{$producto->lugar}}</td>
+                                                                                                        <td width="13%">
+                                                                                                            <button class="btn btn-primary text-right" data-dismiss="modal" 
+                                                                                                                onclick="Zzz('{{ $producto->id }}', '{{ $producto->nombre }}', '{{ $producto ->stock  }}', '{{ $producto ->precio_venta }}')">                                   
+                                                                                                                <i class="fas fa-plus" style="color: rgb(255, 255, 255);"></i>
+                                                                                                            </button>
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                    @endforeach
+                                                                                                </tbody>
+                                                                                            </table>
+                                                                                        
+                                                                                    </div>
+                                                                                        
+                                                                                     
+                                                                                </div>
+                                                                            </div>
+                                                                                <div class="modal-footer">
+                                                                                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+                                                                                </div>
+                                                                         
+                                                                        </div>
+                                                                        
+                                                                    </div>
+                                                                </div>
+                                                        </div>
+
                                                 <!--/span-->
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -249,7 +305,34 @@
 
 @section('scripts')
 
+
+<script src="/ampleadmin/plugins/bower_components/datatables/datatables.min.js"></script>
+<script src="/ampleadmin/plugins/bower_components/peity/jquery.peity.min.js"></script>
+<script src="/ampleadmin/plugins/bower_components/peity/jquery.peity.init.js"></script>
+<!-- start - This is for export functionality only -->
+<script src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+<script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
+<script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script>
+
 <script>
+
+$(document).ready(function() {
+        $("#llamar").click(function() {
+            axios.get(window.location.origin + '/getUnegocio', {
+                params: {
+                    id: $("1").val(),
+                }
+            }).then((response) => {
+                console.log(response);
+            }).catch((value) => {
+                console.log(value);
+            })
+        });
+    });
     
 $(document).ready(function () {
     $("#agregar").click(function () {
@@ -267,6 +350,15 @@ function mostrarValores() {
     $("#precio_venta").val(datosProducto[2]);
     $("#stock").val(datosProducto[1]);
 }
+
+function Zzz(id, nombre, stock, precio_venta)
+    {
+        $("#precio_venta").val(precio_venta);
+        $("#stock").val(stock);
+        $("#producto_id").val(id);
+        $("#nombre_producto").val(nombre);
+    };
+
 var producto_id1 = $('#producto_id');
     
     producto_id1.change(function(){
@@ -307,10 +399,9 @@ $(document).on('keyup', '#code', function(){
         obtener_registro();
     }
 })
-function agregar() {
-    datosProducto = document.getElementById('producto_id').value.split('_');
-    producto_id = datosProducto[0];
-    producto = $("#producto_id option:selected").text();
+function agregar() {       
+    producto_id = $("#producto_id").val();
+    producto = $("#nombre_producto").val();
     cantidad = $("#cantidad").val();
     descuento = $("#descuento").val();
     precio_venta = $("#precio_venta").val();
@@ -345,6 +436,8 @@ function limpiar() {
     $("#documento").val("");
     $("#nombre").val("");
     $("#telefono").val("0");
+    $("#producto_id").val("");
+    $("#nombre_producto").val("");
 
 }
 function totales() {
@@ -430,6 +523,39 @@ function buscar2(){
             return false;
             
         }
+        $(function() {
+        $('#myTable').DataTable();
+        $(document).ready(function() {
+            var table = $('#example').DataTable({
+                "columnDefs": [{
+                    "visible": false,
+                    "targets": 2
+                }],
+                "order": [
+                    [2, 'asc']
+                ],
+                "displayLength": 25,
+                "drawCallback": function(settings) {
+                    var api = this.api();
+                    var rows = api.rows({
+                        page: 'current'
+                    }).nodes();
+                    var last = null;
+                    api.column(2, {
+                        page: 'current'
+                    }).data().each(function(group, i) {
+                        if (last !== group) {
+                            $(rows).eq(i).before('<tr class="group"><td colspan="5">' + group + '</td></tr>');
+                            last = group;
+                        }
+                    });
+                }
+            });
+            // Order by the grouping
+        });
+    });
+
+
 
     @if(session('Ventag')=='error')
         swal("Venta no registrada","", "error")
@@ -440,6 +566,10 @@ function buscar2(){
     @if(session('Ventag')=='dni')
         swal("Venta no registrada","No se puede crear una factura para un cliente con DNI", "error")
     @endif
+
 </script>
+
+
+
 
 @endsection

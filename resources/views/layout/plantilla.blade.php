@@ -96,6 +96,11 @@
                                         </div>
                                     </a>
                                     @endforeach
+                                    @foreach(notitiempo() as $notim)
+                                        <div class="mail-contnet">                                            
+                                                <h5 class="text-danger">{{$notim->Resta}}<h5>                                                                           
+                                        </div>                        
+                                    @endforeach
                                 </div>
                                 @endif
                             </li>
@@ -245,6 +250,8 @@
     <script src="/ampleadmin/plugins/bower_components/sweetalert/jquery.sweet-alert.custom.js"></script>
     <!-- Toastr script -->
     <script src="{{asset('Inspinia/js/plugins/toastr/toastr.min.js')}}"></script>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
     @yield('scripts')
 </body>
