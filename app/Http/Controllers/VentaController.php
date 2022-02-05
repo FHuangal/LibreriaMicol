@@ -388,12 +388,24 @@ class VentaController extends Controller
     }
 
     public function getUnegocio()
-    {
+    { 
+
         $d = Carbon::now()->format('s.v');
 
         $time = Tiempo::findOrFail(2);
-        $time->tiempo_inicio=$d;
-        $time->save();
+        $time-> tiempo_inicio = $d;
+        $time-> save();
+        return;
+    }
+
+    public function zzZ()
+    {
+
+        $d = Carbon::now()->format('s.v');
+
+        $time = Tiempo::findOrFail(2);
+        $time-> tiempo_final = $d;
+        $time-> save();
         return;
     }
     

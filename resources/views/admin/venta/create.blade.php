@@ -72,7 +72,7 @@
                                                 <!--/span-->
                                             </div>
                                             <div class="row">
-                                                <div class="col-md-3">
+                                                <div class="col-md-5">
                                                     <div class="form-group">
                                                         <label class="control-label col-md-3">Producto</label>
                                                         <div class="col-md-9">
@@ -141,9 +141,9 @@
                                                         </div>
 
                                                 <!--/span-->
-                                                <div class="col-md-4">
+                                                <div class="col-md-3">
                                                     <div class="form-group">
-                                                        <label class="control-label col-md-3">Stock disponible</label>
+                                                        <label class="control-label col-md-3">Stock</label>
                                                         <div class="col-md-9">
                                                             <input type="number" class="form-control" id="stock" name="stock" disabled> </div>
                                                     </div>
@@ -151,9 +151,9 @@
                                                 <!--/span-->
                                                 
                                                 <!--/span-->
-                                                <div class="col-md-4">
+                                                <div class="col-md-3">
                                                     <div class="form-group">
-                                                        <label class="control-label col-md-3">Precio venta</label>
+                                                        <label class="control-label col-md-3">Precio</label>
                                                         <div class="col-md-9">
                                                             <input type="number" class="form-control" id="precio_venta" name="precio_venta" disabled> </div>
                                                     </div>
@@ -293,7 +293,7 @@
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-dark" onclick="return limpiar();"><i class="fas fa-eraser"></i></button>
                                                     <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-                                                    <button type="submit" class="btn btn-success waves-effect waves-light">Guardar</button>
+                                                    <button type="submit" class="btn btn-success waves-effect waves-light" id="guardar">Guardar</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -339,6 +339,7 @@ $(document).ready(function () {
         agregar();
     });
 });
+
 var cont = 1;
 total = 0;
 subtotal = [];
@@ -357,48 +358,20 @@ function Zzz(id, nombre, stock, precio_venta)
         $("#stock").val(stock);
         $("#producto_id").val(id);
         $("#nombre_producto").val(nombre);
+
+        axios.get(window.location.origin + '/zzZ', {
+                params: {
+                    id: $("1").val(),
+                }
+            }).then((response) => {
+                console.log(response);
+            }).catch((value) => {
+                console.log(value);
+            })
     };
 
-var producto_id1 = $('#producto_id');
-    
-    producto_id1.change(function(){
-        $.ajax({
-            url: "http://www.lanube.cu.ma/admin/get_products_by_id",
-            method: 'GET',
-            data:{
-                producto_id1: producto_id1.val(),
-            },
-            success: function(data){
-                $("#precio_venta").val(data.precio_venta);
-                $("#stock").val(data.stock);
-        }
-    });
-});
-$(obtener_registro());
-function obtener_registro(code){
-    $.ajax({
-        url: "http://www.lanube.cu.ma/admin/get_products_by_barcode",
-        type: 'GET',
-        data:{
-            code: code
-        },
-        dataType: 'json',
-        success:function(data){
-            console.log(data);
-            $("#precio_venta").val(data.precio_venta);
-            $("#stock").val(data.stock);
-            $("#producto_id").val(data.id);
-        }
-    });
-}
-$(document).on('keyup', '#code', function(){
-    var valorResultado = $(this).val();
-    if(valorResultado!=""){
-        obtener_registro(valorResultado);
-    }else{
-        obtener_registro();
-    }
-})
+
+
 function agregar() {       
     producto_id = $("#producto_id").val();
     producto = $("#nombre_producto").val();
@@ -438,6 +411,8 @@ function limpiar() {
     $("#telefono").val("0");
     $("#producto_id").val("");
     $("#nombre_producto").val("");
+    $("#stock").val("");
+    $("#precio_venta").val("");
 
 }
 function totales() {

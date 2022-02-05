@@ -31,7 +31,8 @@ Route::get('/offline', function()
 	return view('vendor/laravelpwa/offline');
 });
 
-Route::get('/getUnegocio','App\Http\Controllers\VentaController@getUnegocio')->name('getUnegocio');
+Route::get('/getUnegocio','VentaController@getUnegocio')->name('getUnegocio');
+Route::get('/zzZ','VentaController@zzZ')->name('zzZ');
 
 Route::get('sunat/{id}', 'VentaController@sunat')->name('venta.sunat');
 Route::get('/ayuda', 'ReportController@ayuda')->name('ayuda');
