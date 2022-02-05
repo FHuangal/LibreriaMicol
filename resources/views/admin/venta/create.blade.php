@@ -77,12 +77,12 @@
                                                         <label class="control-label col-md-3">Producto</label>
                                                         <div class="col-md-9">
                                                             <input type="hidden" id="producto_id">
-                                                            <input type="text" class="form-control" id="nombre_producto"> 
+                                                            <input type="text" class="form-control" id="nombre_producto" disabled> 
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-1">
-                                                    <button type="button" id="llamar" class="btn btn-primary text-right"  data-toggle="modal" data-target="#nprod">+</button>
+                                                    <button type="button" id="llamar" class="btn btn-primary text-right"  data-toggle="modal" data-target="#nprod"><i class="fas fa-search"></i></button>
                                                 </div>
 
 

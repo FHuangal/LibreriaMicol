@@ -15,13 +15,13 @@ class TiempoSeeder extends Seeder
     public function run()
     {
         Tiempo::create([
-            'tiempo_inicio' => '0.000',
-            'tiempo_final' => '0.000'
+            'tiempo_inicio' => '0.00',
+            'tiempo_final' => '0.00'
         ]);
 
         Tiempo::create([
-            'tiempo_inicio' => '0.000',
-            'tiempo_final' => '0.000'
+            'tiempo_inicio' => '0.00',
+            'tiempo_final' => '0.00'
         ]);
     }
 }

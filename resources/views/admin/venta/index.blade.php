@@ -36,7 +36,7 @@
                                             <th>Fecha de venta</th>
                                             <th>Descuento</th>
                                             <th>Total</th>
-                                            <th style="width:50px;">Acciones</th>
+                                            <th style="width:60px;">Acciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -52,8 +52,7 @@
                                                 <a href="{{route('venta.voucher', $venta->id)}}" class="text-inverse p-r-10" data-toggle="tooltip" title="Imprimir"><i class="ti-printer"></i></a>
                                                 @if($venta->sunat == '0')
                                                 <a class="btn btn-primary" href="#" onclick="enviarSunat({{$venta->id}})">
-                                                    <i class="fa fa-send"></i>
-                                                    Sunat
+                                                    <i class="fa fa-share"></i>
                                                 </a>
                                                 @endif
                                             </td>

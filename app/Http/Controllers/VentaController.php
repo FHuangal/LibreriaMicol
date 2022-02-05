@@ -161,7 +161,6 @@ class VentaController extends Controller
 
     }
 
-    //LO HIZO CARLESSI
     public function obtenerLeyenda($documento)
     {
         $formatter = new NumeroALetras();

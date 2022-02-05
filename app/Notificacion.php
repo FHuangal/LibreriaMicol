@@ -14,8 +14,34 @@ function notificacion()
 
 function notitiempo()
 {
-    return Tiempo::select(DB::raw("(tiempo_final - tiempo_inicio) as Resta"))
-    ->get();
+    $cuenta = Tiempo::find(2);
+    if ($cuenta->tiempo_final < $cuenta->tiempo_inicio) {  
+        return Tiempo::select(DB::raw("((60 - tiempo_inicio) + tiempo_final) as tiempo"))
+        ->where('id', 2)
+        ->get();
+    }
+    else
+    {
+        return Tiempo::select(DB::raw("(tiempo_final - tiempo_inicio) as tiempo"))
+        ->where('id', 2)
+        ->get(); 
+    }
+}
+
+function notitiempov()
+{
+    $cuenta = Tiempo::find(1);
+    if ($cuenta->tiempo_final < $cuenta->tiempo_inicio) {  
+        return Tiempo::select(DB::raw("((60 - tiempo_inicio) + tiempo_final) as tiempo"))
+        ->where('id', 1)
+        ->get();
+    }
+    else
+    {
+        return Tiempo::select(DB::raw("(tiempo_final - tiempo_inicio) as tiempo"))
+        ->where('id', 1)
+        ->get(); 
+    }
 }
 
 //ENVIAR A  SUNAT

@@ -77,7 +77,7 @@
                 <!-- Search input and Toggle icon -->
                 <ul class="nav navbar-top-links navbar-right pull-right">
                     <li class="dropdown">
-                        <a class="dropdown-toggle waves-effect waves-light" data-toggle="dropdown" href="#"> <i class="mdi mdi-bell-outline"></i>
+                        <a class="dropdown-toggle wave waves-light" data-toggle="dropdown" href="#"> <i class="mdi mdi-bell-outline"></i>
                             <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
                         </a>
                         <ul class="dropdown-menu mailbox animated bounceInDown">
@@ -97,8 +97,15 @@
                                     </a>
                                     @endforeach
                                     @foreach(notitiempo() as $notim)
-                                        <div class="mail-contnet">                                            
-                                                <h5 class="text-danger">{{$notim->Resta}}<h5>                                                                           
+                                        <div class="mail-contnet">
+                                                <h5 class="text-danger">Tiempo en busqueda producto: <h5>
+                                                <span class="mail-desc">{{$notim->tiempo}}</span>
+                                        </div>                        
+                                    @endforeach
+                                    @foreach(notitiempov() as $notiv)
+                                        <div class="mail-contnet">
+                                                <h5 class="text-danger">Tiempo de la venta: <h5>
+                                                <span class="mail-desc">{{$notiv->tiempo}}</span>
                                         </div>                        
                                     @endforeach
                                 </div>
