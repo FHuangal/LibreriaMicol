@@ -98,13 +98,13 @@
                                     @endforeach
                                     @foreach(notitiempo() as $notim)
                                         <div class="mail-contnet">
-                                                <h5 class="text-danger">Tiempo en busqueda producto: <h5>
+                                                <h5 class="text-danger">T en busqueda producto: <h5>
                                                 <span class="mail-desc">{{$notim->tiempo}}</span>
                                         </div>                        
                                     @endforeach
                                     @foreach(notitiempov() as $notiv)
                                         <div class="mail-contnet">
-                                                <h5 class="text-danger">Tiempo de la venta: <h5>
+                                                <h5 class="text-danger">T de la venta: <h5>
                                                 <span class="mail-desc">{{$notiv->tiempo}}</span>
                                         </div>                        
                                     @endforeach
